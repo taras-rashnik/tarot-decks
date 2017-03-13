@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Session} from '../../session';
 
 @Component({
   selector: 'app-sessions',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sessions.component.css']
 })
 export class SessionsComponent implements OnInit {
+  sessions: Session[] = [];
 
   constructor() { }
 
