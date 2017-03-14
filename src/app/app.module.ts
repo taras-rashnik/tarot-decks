@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import {SessionService} from './services/session.service';
+
 import { AppComponent } from './app.component';
 import { SessionsComponent } from './components/sessions/sessions.component';
 
@@ -16,7 +18,7 @@ import { SessionsComponent } from './components/sessions/sessions.component';
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [SessionService  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
