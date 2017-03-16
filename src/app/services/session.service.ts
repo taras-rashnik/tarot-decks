@@ -18,4 +18,8 @@ export class SessionService {
     var index: number = this.sessions.indexOf(session, 0);
     this.sessions.splice(index, 1);
   }
+
+  getSessionById(id: number) : Session {
+    return this.sessions.find(s => s.id === id);
+  }
 }

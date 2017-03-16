@@ -6,14 +6,17 @@ import { RouterModule } from '@angular/router';
 
 import {SessionService} from './services/session.service';
 
+import { appRoutes } from "./routing";
+
 import { AppComponent } from './app.component';
 import { SessionsComponent } from './components/sessions/sessions.component';
-import { appRoutes } from "./routing";
+import { CardsTableComponent } from './components/cards-table/cards-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SessionsComponent
+    SessionsComponent,
+    CardsTableComponent
   ],
   imports: [
     BrowserModule,
