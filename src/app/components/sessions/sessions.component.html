@@ -1,11 +1,30 @@
-<h3>Sessions</h3>
-<form>
-  <input type="text" [(ngModel)]="sessionName" name="sessionName">
-  <button (click)="addSession()">Add</button>
-</form>
-<div>
-  <div *ngFor="let session of Sessions">
-    {{session.name}}
-    <button (click)="removeSession(session)">Remove</button>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3>Session management</h3>
+  </div>
+  <div class="panel-body">
+    <form class="well">
+      <div class="form-group">
+        <label for="sessionName">Add a new Sessions</label>
+        <input  class="form-control" type="text" id="sessionName" [(ngModel)]="sessionName" name="sessionName">        
+      </div>
+      <button (click)="addSession()">Add</button>
+    </form>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th width="200">Acctions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let session of Sessions">
+          <td><a  routerLink="/sessions/{{session.id}}" >{{session.name}}</a></td>
+          <td><button (click)="removeSession(session)">Remove</button></td>
+        </tr>
+      </tbody>
+    </table>
+
   </div>
 </div>
