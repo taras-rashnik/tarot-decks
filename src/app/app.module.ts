@@ -11,12 +11,18 @@ import { appRoutes } from "./routing";
 import { AppComponent } from './app.component';
 import { SessionsComponent } from './components/sessions/sessions.component';
 import { CardsTableComponent } from './components/cards-table/cards-table.component';
+import { DecksPaneComponent } from './components/decks-pane/decks-pane.component';
+import { CardsPaneComponent } from './components/cards-pane/cards-pane.component';
+import { MainPaneComponent } from './components/main-pane/main-pane.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SessionsComponent,
-    CardsTableComponent
+    CardsTableComponent,
+    DecksPaneComponent,
+    CardsPaneComponent,
+    MainPaneComponent
   ],
   imports: [
     BrowserModule,
