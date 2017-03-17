@@ -1,30 +1,53 @@
-<div class="panel panel-primary">
-  <div class="panel-heading">
-    <h3>Session management</h3>
+<nav class="navbar navbar-inverse">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+        aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+      <a class="navbar-brand" href="#">Tarot Decks</a>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+      </ul>
+    </div>
+    <!--/.nav-collapse -->
   </div>
-  <div class="panel-body">
-    <form class="well">
-      <div class="form-group">
-        <label for="sessionName">Add a new Sessions</label>
-        <input  class="form-control" type="text" id="sessionName" [(ngModel)]="sessionName" name="sessionName">        
-      </div>
-      <button (click)="addSession()">Add</button>
-    </form>
+</nav>
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th width="200">Acctions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let session of Sessions">
-          <td><a  routerLink="/sessions/{{session.id}}" >{{session.name}}</a></td>
-          <td><button (click)="removeSession(session)">Remove</button></td>
-        </tr>
-      </tbody>
-    </table>
-
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3>Session management</h3>
+    </div>
+    <div class="panel-body">
+      <form class="well">
+        <div class="form-group">
+          <label for="sessionName">Add a new Sessions</label>
+          <input  class="form-control" type="text" id="sessionName" [(ngModel)]="sessionName" name="sessionName">        
+        </div>
+        <button (click)="addSession()">Add</button>
+      </form>
+  
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th width="200">Acctions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let session of Sessions">
+            <td><a  routerLink="/sessions/{{session.id}}" >{{session.name}}</a></td>
+            <td><button (click)="removeSession(session)">Remove</button></td>
+          </tr>
+        </tbody>
+      </table>
+  
+    </div>
   </div>
 </div>

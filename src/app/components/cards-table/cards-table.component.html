@@ -1,4 +1,14 @@
-<p>
-  cards-table works!  
-</p>
-<div *ngIf="!!session">{{session.id}} - {{session.name}}</div>
+<div class="vertical-flex-container">
+  <header class="header-pane">Header</header>
+  <div class="horizontal-flex-container">
+    <section class="main-pane">
+      <p>
+        cards-table works!
+      </p>
+      <div *ngIf="!!session">{{session.id}} - {{session.name}}</div>
+    </section>
+    <aside class="decks-pane">Decks</aside>
+  </div>
+  <aside class="cards-pane">Cards</aside>
+  <footer class="footer-pane">Footer</footer>
+</div>

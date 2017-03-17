@@ -1,0 +1,39 @@
+.vertical-flex-container{
+  display: flex;
+  flex-direction: column;
+  flex: 1 100%;
+  background: lightgray;
+  height: 100vh;
+}
+
+  .header-pane{
+    background: lightblue;
+    flex: 0 0 30px;
+  }
+
+  .horizontal-flex-container {
+    background: red;
+    display: flex;
+    flex: auto;
+  }
+
+    .main-pane{
+      background: lightgoldenrodyellow;
+      flex: 1 auto;
+      /*height: 500px;*/
+    }
+
+    .decks-pane{
+      background: lightcoral;
+      flex: 0 0 200px;
+    }
+
+  .cards-pane{
+    background: lightpink;
+    flex: 0 0 200px;
+  }
+
+  .footer-pane{
+    background: lightgreen;
+    flex: 0 0 30px;
+  }
