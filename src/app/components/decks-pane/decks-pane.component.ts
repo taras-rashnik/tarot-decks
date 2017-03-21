@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Deck } from "../../model/deck";
 
 @Component({
   selector: 'app-decks-pane',
@@ -6,8 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./decks-pane.component.css']
 })
 export class DecksPaneComponent implements OnInit {
+  decks: Deck[] = [];
 
-  constructor() { }
+  constructor() { 
+    for(let i = 0; i <40; i++){
+      this.decks.push(new Deck(`deck${i}`));
+    }
+  }
 
   ngOnInit() {
   }
