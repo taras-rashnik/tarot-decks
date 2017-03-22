@@ -5,3 +5,12 @@
     box-sizing: border-box;
     background: cadetblue;
 }
+
+.image-holder{
+    background-image: url(../../../assets/decks/deck1/tarot_deck_01.png);
+    background-repeat: no-repeat;
+    background-position-x: 0;
+    background-position-y: 0;
+    width: 100px;
+    height: 150px;
+}
