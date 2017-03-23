@@ -21,13 +21,22 @@ export class DecksPaneComponent implements OnInit {
       top = 0;
 
       for (let j = 0; j < 5; j++) {
-        let deck: any = new Deck(`deck${i}`);
+        let deck: any = new Deck(`deck_${i}_${j}`);
         deck.picture = {
           left: Math.floor(left),
           top: Math.floor(top),
           width: width,
           height: height,
           url: 'url(../../../assets/decks/deck1/tarot_deck_01.png)'
+        };
+
+        deck.picture.styles = {
+          'background-repeat': 'no-repeat',
+          'background-position-x.px': Math.floor(left),
+          'background-position-y.px': Math.floor(top),
+          'width.px': width,
+          'height.px': height,
+          'background-image': 'url(../../../assets/decks/deck1/tarot_deck_01.png)'
         };
 
         this.decks.push(deck);

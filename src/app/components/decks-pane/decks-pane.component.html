@@ -1,15 +1,7 @@
 <div class="outer-container">
   <ul>
     <li *ngFor="let deck of decks">
-      <div class="image-holder" 
-           [style.color] = "false ? 'blue' : 'green'"
-           [style.background-image]="deck.picture.url"
-           [style.width.px]="deck.picture.width"
-           [style.height.px]="deck.picture.height"
-           [style.background-position-x.px]="deck.picture.left"
-           [style.background-position-y.px]="deck.picture.top"
-           >
-      </div>
+      <div class="image-holder" [ngStyle]="deck.picture.styles"></div>
       {{deck.name}}
     </li>
   </ul>

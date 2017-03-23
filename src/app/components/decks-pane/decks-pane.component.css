@@ -13,4 +13,15 @@
     background-position-y: 0;
     width: 100px;
     height: 150px;
+
+    box-sizing: content-box;
+    border: 3px solid lightgoldenrodyellow;
+}
+
+.image-holder:hover{
+    border: 3px solid greenyellow;
+}
+
+ul>li{
+    list-style-type: none;
 }
