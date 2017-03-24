@@ -1,3 +1,14 @@
 export class Deck {
-    constructor(private name: string){}
+    constructor(){}
+
+    id: number;
+    name: string;
+    imageUrl: string;
+    cardsWidth: number;
+    cardsHeight: number;
+    horizontalGap: number;
+    verticalGap: number;
+    cardsInRow: number;
+    cardsInColumn: number;
+    cardsNumber: number;
 }

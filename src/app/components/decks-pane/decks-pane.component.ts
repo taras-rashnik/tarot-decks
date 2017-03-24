@@ -21,7 +21,8 @@ export class DecksPaneComponent implements OnInit {
       top = 0;
 
       for (let j = 0; j < 5; j++) {
-        let deck: any = new Deck(`deck_${i}_${j}`);
+        let deck: any = new Deck();
+        deck.name = `deck_${i}_${j}`;
         deck.picture = {
           left: Math.floor(left),
           top: Math.floor(top),
@@ -36,7 +37,7 @@ export class DecksPaneComponent implements OnInit {
           'background-position-y.px': Math.floor(top),
           'width.px': width,
           'height.px': height,
-          'background-image': 'url(../../../assets/decks/deck1/tarot_deck_01.png)'
+          'background-image': 'url(../../../../src/assets/decks/deck1/tarot_deck_01.png)'
         };
 
         this.decks.push(deck);
