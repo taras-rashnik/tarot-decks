@@ -1,5 +1,5 @@
 <div class="outer-container">
-  <ul>
+  <ul *ngIf="decks">
     <li *ngFor="let deck of decks">
       <div class="image-holder" [ngStyle]="deck.picture.styles"></div>
       {{deck.name}}

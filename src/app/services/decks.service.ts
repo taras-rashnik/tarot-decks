@@ -1,49 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Deck } from "../model/deck";
+import { Http, Response } from "@angular/http";
+import {Observable} from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class DecksService {
 
-  constructor() { }
+  constructor(private http: Http) { }
 
-  getDecks(): Deck[] {
-    return [
-      {
-        id: 1,
-        name: "the first deck",
-        imageUrl: "src/assets/decks/deck1/tarot_deck_01.png",
-        cardsWidth: 83,
-        cardsHeight: 141,
-        horizontalGap: 7.5,
-        verticalGap: 6,
-        cardsInRow: 11,
-        cardsInColumn: 5,
-        cardsNumber: 55
-      },
-      {
-        id: 2,
-        name: "the second deck",
-        imageUrl: "src/assets/decks/tarot_2.jpg",
-        cardsWidth: 78,
-        cardsHeight: 127,
-        horizontalGap: 1,
-        verticalGap: 1,
-        cardsInRow: 13,
-        cardsInColumn: 6,
-        cardsNumber: 78
-      },
-      {
-        id: 3,
-        name: "the third deck",
-        imageUrl: "src/assets/decks/tarot_3.png",
-        cardsWidth: 160,
-        cardsHeight: 258,
-        horizontalGap: 1,
-        verticalGap: 1,
-        cardsInRow: 10,
-        cardsInColumn: 7,
-        cardsNumber: 70
-      }
-    ];
+  getDecks(): Observable<Deck[]> {
+    return this.http.get("src/assets/decks/decks.json")
+      .map((res: Response) => res.json())
+      .catch((error: Response) => {
+        console.error(error);
+        return Observable.throw(error);
+      });
   }
 }
