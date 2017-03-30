@@ -4,7 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
-import {SessionService} from './services/session.service';
+import { SessionService } from './services/session.service';
+import { DecksService } from "./services/decks.service";
 
 import { appRoutes } from "./routing";
 
@@ -30,7 +31,10 @@ import { MainPaneComponent } from './components/main-pane/main-pane.component';
     HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [SessionService  ],
+  providers: [
+    SessionService,
+    DecksService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,4 @@
-export class Deck {
-    constructor(){}
-
+export interface Deck {
     id: number;
     name: string;
     imageUrl: string;
