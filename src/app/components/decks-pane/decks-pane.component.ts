@@ -26,8 +26,9 @@ export class DecksPaneComponent implements OnInit {
   ngOnInit() {
     this.decksService.getDecks().subscribe((decks: Deck[]) => {
       this.decks = decks;
+      this.onImageClick(decks[0]);
 
-      let deck: any;
+      let deck: Deck;
       for (deck of this.decks) {
         deck.picture = {
           left: 0,

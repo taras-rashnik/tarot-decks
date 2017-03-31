@@ -1,6 +1,6 @@
 <div class="outer-container">
   <ul>
-    <li *ngFor="let card of cards">
+    <li *ngFor="let card of _cards">
       <div class="image-holder" [ngStyle]="card.picture.styles"></div>
       {{card.name}}
     </li>

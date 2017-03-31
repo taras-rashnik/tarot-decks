@@ -9,4 +9,6 @@ export interface Deck {
     cardsInRow: number;
     cardsInColumn: number;
     cardsNumber: number;
+
+    picture: any;
 }

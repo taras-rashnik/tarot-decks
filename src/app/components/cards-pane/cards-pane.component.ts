@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Card } from "../../model/card";
+import { Deck } from "../../model/deck";
 
 @Component({
   selector: 'app-cards-pane',
@@ -7,51 +8,47 @@ import { Card } from "../../model/card";
   styleUrls: ['./cards-pane.component.css']
 })
 export class CardsPaneComponent implements OnInit {
-  cards: Card[] = [];
+  _cards: Card[] = [];
+  _selectedDeck: Deck;
 
   constructor() {
-    const width = 83;
-    const height = 141;
-    const deltaWidth = 7.5;
-    const deltaHeight = 6;
-    let left = 0;
-    let top = 0;
+  }
 
-    for (let i = 0; i < 11; i++) {
-      top = 0;
-
-      for (let j = 0; j < 5; j++) {
-        let card: any = new Card();
-        card.name = `card_${i}_${j}`;
-        card.picture = {
-          left: Math.floor(left),
-          top: Math.floor(top),
-          width: width,
-          height: height,
-          url: 'url(../../../assets/decks/deck1/tarot_deck_01.png)'
-        };
-
-        card.picture.styles = {
-          'background-repeat': 'no-repeat',
-          'background-position-x.px': Math.floor(left),
-          'background-position-y.px': Math.floor(top),
-          'width.px': width,
-          'height.px': height,
-          'background-image': 'url(../../../../src/assets/decks/deck1/tarot_deck_01.png)'
-        };
-
-        this.cards.push(card);
-
-        top -= height;
-        top -= deltaHeight;
-      }
-
-      left -= width;
-      left -= deltaWidth;
-    }
+  @Input() set selectedDeck(deck: Deck) {
+    console.log('set selectedDeck');
+    this._selectedDeck = deck;
+    this.updateCardsFromDeck(this._selectedDeck);
   }
 
   ngOnInit() {
   }
 
+  updateCardsFromDeck(deck: Deck): void {
+    this._cards.length = 0;
+
+    if (!deck) {
+      return;
+    }
+
+    for (let i = 0; i < deck.cardsInColumn; i++) {
+      for (let j = 0; j < deck.cardsInRow; j++) {
+        let card: Card = new Card();
+        card.name = `card row:${i} col:${j}`;
+        let left = -Math.floor(j * (deck.cardsWidth + deck.horizontalGap));
+        let top = -Math.floor(i * (deck.cardsHeight + deck.verticalGap));
+        
+        card.picture = {};
+        card.picture.styles = {
+          'background-repeat': 'no-repeat',
+          'background-position-x.px': left,
+          'background-position-y.px': top,
+          'width.px': deck.cardsWidth,
+          'height.px': deck.cardsHeight,
+          'background-image': `url(${deck.imageUrl})`
+        };
+
+        this._cards.push(card);
+      }
+    }
+  }
 }

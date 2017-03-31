@@ -1,4 +1,5 @@
-<div class="vertical-flex-container">
+<h1 *ngIf="!session">No session!</h1>
+<div *ngIf="!!session" class="vertical-flex-container">
   <header class="header-pane">Header</header>
   <div class="horizontal-flex-container">
     <section class="main-pane">
@@ -9,7 +10,7 @@
     </aside>
   </div>
   <aside class="cards-pane">
-    <app-cards-pane></app-cards-pane>
+    <app-cards-pane [selectedDeck]="session.selectedDeck"></app-cards-pane>
   </aside>
   <footer class="footer-pane">Footer</footer>
 </div>
