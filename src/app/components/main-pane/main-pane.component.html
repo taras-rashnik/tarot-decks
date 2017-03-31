@@ -1,3 +1,11 @@
-<p>
+<div class="main" (drop)="onDrop($event)" (dragover)="onDdragover($event)">
   main-pane works!
-</p>
+  <ul>
+    <li *ngFor="let card of _cards">
+      <div class="image-holder" [ngStyle]="card.picture.styles" draggable="true" (dragstart)="onDragStart($event, card)">
+
+      </div>
+      {{card.name}}
+    </li>
+  </ul>
+</div>

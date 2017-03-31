@@ -23,6 +23,13 @@ export class CardsPaneComponent implements OnInit {
   ngOnInit() {
   }
 
+  onDragStart(event: DragEvent, card: Card) : void {
+    console.log('onDragStart');
+
+    event.dataTransfer.dropEffect = "copy";
+    event.dataTransfer.setData("text", JSON.stringify(card));
+  }
+
   updateCardsFromDeck(deck: Deck): void {
     this._cards.length = 0;
 
@@ -36,7 +43,7 @@ export class CardsPaneComponent implements OnInit {
         card.name = `card row:${i} col:${j}`;
         let left = -Math.floor(j * (deck.cardsWidth + deck.horizontalGap));
         let top = -Math.floor(i * (deck.cardsHeight + deck.verticalGap));
-        
+
         card.picture = {};
         card.picture.styles = {
           'background-repeat': 'no-repeat',

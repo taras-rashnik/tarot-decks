@@ -1,7 +1,12 @@
 <div class="outer-container">
   <ul>
     <li *ngFor="let card of _cards">
-      <div class="image-holder" [ngStyle]="card.picture.styles"></div>
+      <div class="image-holder" 
+           [ngStyle]="card.picture.styles"
+           draggable="true"
+           (dragstart)="onDragStart($event, card)">
+
+      </div>
       {{card.name}}
     </li>
   </ul>
