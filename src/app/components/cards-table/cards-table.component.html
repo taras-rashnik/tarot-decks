@@ -1,9 +1,15 @@
 <div class="vertical-flex-container">
   <header class="header-pane">Header</header>
   <div class="horizontal-flex-container">
-    <section class="main-pane"><app-main-pane></app-main-pane></section>
-    <aside class="decks-pane"><app-decks-pane></app-decks-pane></aside>
+    <section class="main-pane">
+      <app-main-pane></app-main-pane>
+    </section>
+    <aside class="decks-pane">
+      <app-decks-pane (deckSelected)="onDeckSelected($event)"></app-decks-pane>
+    </aside>
   </div>
-  <aside class="cards-pane"><app-cards-pane></app-cards-pane></aside>
+  <aside class="cards-pane">
+    <app-cards-pane></app-cards-pane>
+  </aside>
   <footer class="footer-pane">Footer</footer>
 </div>

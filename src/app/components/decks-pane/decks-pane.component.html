@@ -1,7 +1,8 @@
 <div class="outer-container">
   <ul *ngIf="decks">
     <li *ngFor="let deck of decks">
-      <div class="image-holder" [ngStyle]="deck.picture.styles"></div>
+      <div class="image-holder" [ngStyle]="deck.picture.styles" (click)="onImageClick(deck)">
+      </div>
       {{deck.name}}
     </li>
   </ul>

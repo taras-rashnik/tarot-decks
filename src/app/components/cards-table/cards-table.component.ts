@@ -3,6 +3,7 @@ import { ActivatedRoute, Router, Params } from "@angular/router";
 // import 'rxjs/add/operator/map';
 import { Session } from "../../model/session";
 import { SessionService } from "../../services/session.service";
+import { Deck } from "../../model/deck";
 
 @Component({
   selector: 'cards-table',
@@ -17,6 +18,11 @@ export class CardsTableComponent implements OnInit {
     private router: Router,
     private sessionService: SessionService) {       
     }
+
+  onDeckSelected(deck: Deck) : void {
+    console.log('onDeckSelected');
+    this.session.selectedDeck = deck;
+  }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
