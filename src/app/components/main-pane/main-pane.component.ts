@@ -19,6 +19,8 @@ export class MainPaneComponent implements OnInit {
     console.log('onDrop');
     let text = event.dataTransfer.getData("text");
     let card: Card = JSON.parse(text);
+    card.left = event.clientX;
+    card.top = event.clientY;
     console.log(card);
     this._cards.push(card);
   }
