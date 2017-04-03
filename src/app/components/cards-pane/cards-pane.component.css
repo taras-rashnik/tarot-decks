@@ -8,20 +8,13 @@
     padding: 10px;
 }
 
-.image-holder{
+.image{
     background-image: url(../../../assets/decks/deck1/tarot_deck_01.png);
     background-repeat: no-repeat;
     background-position-x: 0;
     background-position-y: 0;
     width: 100px;
     height: 150px;
-
-    box-sizing: content-box;
-    border: 3px solid lightgoldenrodyellow;    
-}
-
-.image-holder:hover{
-    border: 3px solid greenyellow;
 }
 
 ul {
@@ -35,3 +28,15 @@ ul>li{
   display: inline-block;
   margin: 5px;
 }
+
+.image-box{
+    display: inline-block;
+    box-sizing: content-box;
+    border: 3px solid lightgoldenrodyellow;    
+}
+
+
+.image-box:hover{
+    border: 3px solid greenyellow;
+}
+

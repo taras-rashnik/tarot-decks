@@ -1,13 +1,13 @@
 <div class="outer-container">
   <ul>
     <li *ngFor="let card of _cards">
-      <div class="image-holder" 
-           [ngStyle]="card.picture.styles"
-           draggable="true"
-           (dragstart)="onDragStart($event, card)">
-
+      <div class="image-box">
+        <div class="image" [ngStyle]="card.picture.styles" draggable="true" (dragstart)="onDragStart($event, card)">
+        </div>
       </div>
-      {{card.name}}
+      <div>
+        {{card.name}}
+      </div>
     </li>
   </ul>
 </div>

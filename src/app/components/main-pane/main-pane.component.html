@@ -2,12 +2,10 @@
   main-pane works!
   <ul>
     <li *ngFor="let card of _cards">
-      <div class="image-holder" 
-           [ngStyle]="card.picture.styles" 
-           draggable="true" 
-           (dragstart)="onDragStart($event, card)"
-           [style.left.px]="card.left"
-           [style.top.px]="card.top">
+      <div class="image-box" [style.left.px]="card.left" [style.top.px]="card.top">
+        <div class="image" [ngStyle]="card.picture.styles" 
+        draggable="true" (dragstart)="onDragStart($event, card)" (dragend)="onDragEnd($event, card)">
+        </div>
       </div>
       {{card.name}}
     </li>

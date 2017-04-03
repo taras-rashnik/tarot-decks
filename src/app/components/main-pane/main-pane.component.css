@@ -4,6 +4,16 @@
   background-color: lightskyblue;
 }
 
-.image-holder{
-  position: absolute;
+.image{  
+}
+
+.image-box{
+    position: absolute;
+    display: inline-block;
+    box-sizing: content-box;
+    border: 3px solid lightgoldenrodyellow;    
+}
+
+.image-box:hover{
+    border: 3px solid greenyellow;
 }

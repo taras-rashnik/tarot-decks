@@ -27,7 +27,26 @@ export class MainPaneComponent implements OnInit {
 
   onDdragover(event: DragEvent): void {
     event.preventDefault();
-    event.dataTransfer.dropEffect = "copy";
+    // event.dataTransfer.dropEffect = "copy";
   }
 
+  onDragStart(event: DragEvent, card: Card): void {
+    console.log('onDragStart');
+
+    event.dataTransfer.dropEffect = "move";
+    event.dataTransfer.setData("text", JSON.stringify(card));
+  }
+
+  onDragEnd(event: DragEvent, card: Card): void {
+    console.log('onDragEnd');
+
+    if (event.dataTransfer.dropEffect === "move") {
+      let index = this._cards.findIndex(c => c === card);
+      if (index >= 0) {
+        this._cards.splice(index, 1);
+      }
+    }
+    else
+      throw new Error("test");
+  }
 }
