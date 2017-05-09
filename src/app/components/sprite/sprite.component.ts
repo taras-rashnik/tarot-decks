@@ -24,7 +24,9 @@ export class SpriteComponent implements OnInit {
       'background-position-y.px': sprite.top,
       'width.px': sprite.width,
       'height.px': sprite.height,
-      'background-image': `url(${sprite.url})`
+      'background-image': `url(${sprite.url})`,
+      'transform-origin': '0 0',
+      'transform': `scale(${200/sprite.width}, ${300/sprite.height})`
     };
   }
 
