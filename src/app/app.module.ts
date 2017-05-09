@@ -15,6 +15,7 @@ import { CardsTableComponent } from './components/cards-table/cards-table.compon
 import { DecksPaneComponent } from './components/decks-pane/decks-pane.component';
 import { CardsPaneComponent } from './components/cards-pane/cards-pane.component';
 import { MainPaneComponent } from './components/main-pane/main-pane.component';
+import { TestPane1Component } from './components/test-pane1/test-pane1.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { MainPaneComponent } from './components/main-pane/main-pane.component';
     CardsTableComponent,
     DecksPaneComponent,
     CardsPaneComponent,
-    MainPaneComponent
+    MainPaneComponent,
+    TestPane1Component
   ],
   imports: [
     BrowserModule,

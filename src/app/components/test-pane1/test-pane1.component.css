@@ -1,0 +1,32 @@
+.container {
+background-color: lightpink;
+position: relative;
+width: 100%;
+height: 100vh;
+}
+
+.placeholder {
+  background-color: yellow;
+  position: absolute;
+}
+
+.sprite1{
+  left: 100px;
+  top: 100px;
+  width: 200px;
+  height: 300px;
+}
+
+.sprite2{
+  left: 400px;
+  top: 100px;
+  width: 200px;
+  height: 300px;
+}
+
+.sprite3{
+  left: 700px;
+  top: 100px;
+  width: 200px;
+  height: 300px;
+}
