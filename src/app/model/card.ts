@@ -5,15 +5,15 @@ export class Card {
   styles: any = {};
 
   constructor(private deck: Deck, row: number, column: number) {
+    let horizontalPercentage = column * 100 / (deck.deckInfo.cardsInRow - 1);
+    let verticalPercentage = row * 100 / (deck.deckInfo.cardsInColumn - 1);
     this.styles = {
       'background-repeat': 'no-repeat',
-      'background-position-x.px': -column * (deck.deckInfo.cardsWidth + deck.deckInfo.horizontalGap),
-      'background-position-y.px': -row * (deck.deckInfo.cardsHeight + deck.deckInfo.verticalGap),
-      'width.px': deck.deckInfo.cardsWidth,
-      'height.px': deck.deckInfo.cardsHeight,
+      'background-position': `${horizontalPercentage}% ${verticalPercentage}%`,
       'background-image': `url(${deck.deckInfo.imageUrl})`,
-      'transform-origin': '0 0',
-      'transform': `scale(${200 / deck.deckInfo.cardsWidth}, ${300 / deck.deckInfo.cardsHeight})`
+      'background-size': `${deck.deckInfo.cardsInRow * 100}% ${deck.deckInfo.cardsInColumn * 100}%`,
+      'width': '100%',
+      'height': '100%',
     };
   }
 }

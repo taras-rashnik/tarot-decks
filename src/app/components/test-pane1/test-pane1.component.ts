@@ -16,7 +16,6 @@ export class TestPane1Component implements OnInit {
   ngOnInit() {
     this.decksService.getDecks().subscribe((decks: Deck[]) => {
       this.decks = decks;
-      console.log(this.decks);
     });
   }
 

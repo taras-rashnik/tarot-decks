@@ -1,8 +1,9 @@
 <div class="outer-container">
-  <ul>
-    <li *ngFor="let card of _cards">
+  <ul *ngIf="!!_selectedDeck">
+    <li *ngFor="let card of _selectedDeck.cards">
       <div class="image-box">
-        <div class="image" [ngStyle]="card.picture.styles" draggable="true" (dragstart)="onDragStart($event, card)">
+        <div class="image" draggable="true" (dragstart)="onDragStart($event, card)">
+          <app-sprite [card]="card"></app-sprite>
         </div>
       </div>
       <div>
