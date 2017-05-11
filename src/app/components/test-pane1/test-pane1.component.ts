@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Sprite } from "../../model/sprite";
+import { DecksService } from "../../services/decks.service";
+import { Deck } from "../../model/deck";
 
 @Component({
   selector: 'app-test-pane1',
@@ -8,33 +9,15 @@ import { Sprite } from "../../model/sprite";
 })
 export class TestPane1Component implements OnInit {
 
-  sprites: Sprite[] = [
-    {
-      url: 'src/assets/decks/deck1/tarot_deck_01.png',
-      left: -90,
-      top: -147,
-      width: 83,
-      height: 141
-    },
-    {
-      url: 'src/assets/decks/tarot_2.jpg',
-      left: -79,
-      top: -128,
-      width: 78,
-      height: 127
-    },
-    {
-      url: 'src/assets/decks/tarot_3.png',
-      left: -161,
-      top: -259,
-      width: 160,
-      height: 258
-    },
-  ];
+  decks: Deck[];
 
-  constructor() { }
+  constructor(private decksService: DecksService) { }
 
   ngOnInit() {
+    this.decksService.getDecks().subscribe((decks: Deck[]) => {
+      this.decks = decks;
+      console.log(this.decks);
+    });
   }
 
 }

@@ -9,7 +9,9 @@
     "verticalGap": 6,
     "cardsInRow": 11,
     "cardsInColumn": 5,
-    "cardsNumber": 55
+    "cardsNumber": 55,
+    "backSideIndex": 0,
+    "deckPictureIndex": 0
   },
   {
     "id": 2,
@@ -21,7 +23,9 @@
     "verticalGap": 1,
     "cardsInRow": 13,
     "cardsInColumn": 6,
-    "cardsNumber": 78
+    "cardsNumber": 78,
+    "backSideIndex": 0,
+    "deckPictureIndex": 0
   },
   {
     "id": 3,
@@ -33,6 +37,8 @@
     "verticalGap": 1,
     "cardsInRow": 10,
     "cardsInColumn": 7,
-    "cardsNumber": 70
+    "cardsNumber": 70,
+    "backSideIndex": 0,
+    "deckPictureIndex": 0
   }
 ]

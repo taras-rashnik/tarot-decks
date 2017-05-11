@@ -28,25 +28,25 @@ export class DecksPaneComponent implements OnInit {
       this.decks = decks;
       this.onImageClick(decks[0]);
 
-      let deck: Deck;
-      for (deck of this.decks) {
-        deck.picture = {
-          left: 0,
-          top: 0,
-          width: deck.cardsWidth,
-          height: deck.cardsHeight,
-          url: `url(${deck.imageUrl})`
-        };
+      // let deck: Deck;
+      // for (deck of this.decks) {
+      //   deck.picture = {
+      //     left: 0,
+      //     top: 0,
+      //     width: deck.cardsWidth,
+      //     height: deck.cardsHeight,
+      //     url: `url(${deck.imageUrl})`
+      //   };
 
-        deck.picture.styles = {
-          'background-repeat': 'no-repeat',
-          'background-position-x.px': 0,
-          'background-position-y.px': 0,
-          'width.px': deck.cardsWidth,
-          'height.px': deck.cardsHeight,
-          'background-image': `url(${deck.imageUrl})`
-        };
-      }
+      //   deck.picture.styles = {
+      //     'background-repeat': 'no-repeat',
+      //     'background-position-x.px': 0,
+      //     'background-position-y.px': 0,
+      //     'width.px': deck.cardsWidth,
+      //     'height.px': deck.cardsHeight,
+      //     'background-image': `url(${deck.imageUrl})`
+      //   };
+      // }
     });
   }
 

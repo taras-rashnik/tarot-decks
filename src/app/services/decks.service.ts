@@ -4,6 +4,7 @@ import { Http, Response } from "@angular/http";
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { DeckInfo } from "../model/deck-info";
 
 @Injectable()
 export class DecksService {
@@ -12,7 +13,10 @@ export class DecksService {
 
   getDecks(): Observable<Deck[]> {
     return this.http.get("src/assets/decks/decks.json")
-      .map((res: Response) => res.json())
+      .map((res: Response) => {
+        let deckInfos : DeckInfo[] = res.json();
+        return deckInfos.map(di => new Deck(di));
+      })
       .catch((error: Response) => {
         console.error(error);
         return Observable.throw(error);

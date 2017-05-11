@@ -1,11 +1,11 @@
-<div class="container">
+<div *ngIf="!!decks" class="container">
   <div class="placeholder sprite1">
-    <app-sprite [sprite]="sprites[0]"></app-sprite>
+    <app-sprite [card]="decks[0].cards[10]"></app-sprite>
   </div>
   <div class="placeholder sprite2">
-    <app-sprite [sprite]="sprites[1]"></app-sprite>
+    <app-sprite [card]="decks[1].backSide"></app-sprite>
   </div>
   <div class="placeholder sprite3">
-    <app-sprite [sprite]="sprites[2]"></app-sprite>
+    <app-sprite [card]="decks[2].deckPicture"></app-sprite>
   </div>
 </div>
