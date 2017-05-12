@@ -1,0 +1,8 @@
+.container{
+  position: absolute;
+  left: 200px;
+  top: 400px;
+  width: 150px;
+  height: 250px;
+  background-color: lightyellow;
+}

@@ -1,4 +1,5 @@
 <div *ngIf="!!decks" class="container">
+  
   <div class="placeholder sprite1">
     <app-sprite [card]="decks[0].cards[10]"></app-sprite>
   </div>
@@ -8,4 +9,9 @@
   <div class="placeholder sprite3">
     <app-sprite [card]="decks[3].deckPicture"></app-sprite>
   </div>
+
+  <app-resizable-frame left="200" top="400" width="150" height="250">
+    <app-sprite [card]="decks[3].cards[12]"></app-sprite>
+  </app-resizable-frame>
+
 </div>

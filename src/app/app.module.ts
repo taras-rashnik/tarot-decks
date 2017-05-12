@@ -17,6 +17,7 @@ import { CardsPaneComponent } from './components/cards-pane/cards-pane.component
 import { MainPaneComponent } from './components/main-pane/main-pane.component';
 import { TestPane1Component } from './components/test-pane1/test-pane1.component';
 import { SpriteComponent } from './components/sprite/sprite.component';
+import { ResizableFrameComponent } from './components/resizable-frame/resizable-frame.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { SpriteComponent } from './components/sprite/sprite.component';
     CardsPaneComponent,
     MainPaneComponent,
     TestPane1Component,
-    SpriteComponent
+    SpriteComponent,
+    ResizableFrameComponent
   ],
   imports: [
     BrowserModule,
