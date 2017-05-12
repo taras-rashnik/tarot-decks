@@ -4,7 +4,7 @@ export class Card {
 
   styles: any = {};
 
-  constructor(private deck: Deck, row: number, column: number) {
+  constructor(private deck: Deck, { row, column }: { row: number, column: number }) {
     let horizontalPercentage = column * 100 / (deck.deckInfo.cardsInRow - 1);
     let verticalPercentage = row * 100 / (deck.deckInfo.cardsInColumn - 1);
     this.styles = {

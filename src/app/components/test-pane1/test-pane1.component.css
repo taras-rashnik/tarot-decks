@@ -8,25 +8,21 @@ height: 100vh;
 .placeholder {
   background-color: yellow;
   position: absolute;
+  width: 100px;
+  height: 150px;
 }
 
 .sprite1{
-  left: 100px;
-  top: 100px;
-  width: 200px;
-  height: 300px;
+  left: 50px;
+  top: 50px;
 }
 
 .sprite2{
-  left: 400px;
-  top: 100px;
-  width: 200px;
-  height: 300px;
+  left: 200px;
+  top: 50px;
 }
 
 .sprite3{
-  left: 700px;
-  top: 100px;
-  width: 200px;
-  height: 300px;
+  left: 350px;
+  top: 50px;
 }

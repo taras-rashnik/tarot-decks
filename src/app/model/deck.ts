@@ -14,12 +14,15 @@ export class Deck {
           break;
         }
 
-        this.cards.push(new Card(this, j, i));
+        this.cards.push(new Card(this, {row:j, column:i}));
       }
     }
 
-    this.backSide = new Card(this, this.calculateRow(deckInfo.backSideIndex, deckInfo.cardsInRow), this.calculateColumn(deckInfo.backSideIndex, deckInfo.cardsInRow));
-    this.deckPicture = new Card(this, this.calculateRow(deckInfo.deckPictureIndex, deckInfo.cardsInRow), this.calculateColumn(deckInfo.deckPictureIndex, deckInfo.cardsInRow));
+    this.backSide = new Card(this, this.calculateRowAndColumn(deckInfo.backSideIndex, deckInfo.cardsInRow));
+    this.deckPicture = new Card(this, this.calculateRowAndColumn(deckInfo.deckPictureIndex, deckInfo.cardsInRow));
+
+    // this.backSide = new Card(this, this.calculateRow(deckInfo.backSideIndex, deckInfo.cardsInRow), this.calculateColumn(deckInfo.backSideIndex, deckInfo.cardsInRow));
+    // this.deckPicture = new Card(this, this.calculateRow(deckInfo.deckPictureIndex, deckInfo.cardsInRow), this.calculateColumn(deckInfo.deckPictureIndex, deckInfo.cardsInRow));
   }
 
   private calculateRow(index: number, cardsInRow: number) : number {
@@ -28,6 +31,14 @@ export class Deck {
 
   private calculateColumn(index: number, cardsInRow: number) : number {
     return Math.floor(index % cardsInRow);
+  }
+
+  
+  private calculateRowAndColumn(index: number, cardsInRow: number) : any {
+    return { 
+      row: Math.floor(index / cardsInRow),
+      column: Math.floor(index % cardsInRow)
+    };
   }
 
 }
