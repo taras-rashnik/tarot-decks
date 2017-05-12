@@ -10,8 +10,8 @@
     "cardsInRow": 11,
     "cardsInColumn": 5,
     "cardsNumber": 55,
-    "backSideIndex": 0,
-    "deckPictureIndex": 0
+    "backSideIndex": 54,
+    "deckPictureIndex": 54
   },
   {
     "id": 2,
@@ -24,8 +24,8 @@
     "cardsInRow": 13,
     "cardsInColumn": 6,
     "cardsNumber": 78,
-    "backSideIndex": 0,
-    "deckPictureIndex": 0
+    "backSideIndex": 31,
+    "deckPictureIndex": 30
   },
   {
     "id": 3,
@@ -38,7 +38,21 @@
     "cardsInRow": 10,
     "cardsInColumn": 7,
     "cardsNumber": 70,
-    "backSideIndex": 0,
-    "deckPictureIndex": 0
+    "backSideIndex": 68,
+    "deckPictureIndex": 34
+  },
+  {
+    "id": 4,
+    "name": "the forth deck",
+    "imageUrl": "src/assets/decks/playing-cards.gif",
+    "cardsWidth": 81,
+    "cardsHeight": 117,
+    "horizontalGap": 0,
+    "verticalGap": 0,
+    "cardsInRow": 13,
+    "cardsInColumn": 5,
+    "cardsNumber": 52,
+    "backSideIndex": 53,
+    "deckPictureIndex": 54
   }
 ]
