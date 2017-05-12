@@ -1,7 +1,11 @@
 <div class="container" [ngStyle]="styles">
-  <div>Rotation grip</div>
-  <div>Resizing grip</div>
+  <div style="text-align: center;">
+    <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+  </div>
   <div style="height:200px;width:150px;">
     <ng-content></ng-content>
+  </div>
+  <div style="text-align: right;">
+    <span class="glyphicon glyphicon-resize-full" aria-hidden="true"></span>
   </div>
 </div>
