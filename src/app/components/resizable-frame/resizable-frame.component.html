@@ -1,3 +1,7 @@
-<div class="container">
-  resizable-frame works!
+<div class="container" [ngStyle]="styles">
+  <div>Rotation grip</div>
+  <div>Resizing grip</div>
+  <div style="height:200px;width:150px;">
+    <ng-content></ng-content>
+  </div>
 </div>
