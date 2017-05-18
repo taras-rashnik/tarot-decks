@@ -1,11 +1,11 @@
 <div class="container" [ngStyle]="styles">
-  <div style="text-align: center;">
+  <div class="rotate" #rotate>
     <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
   </div>
-  <div style="height:200px;width:150px;">
+  <div class="content">
     <ng-content></ng-content>
   </div>
-  <div style="text-align: right;">
+  <div class="resize" #resize>
     <span class="glyphicon glyphicon-resize-full" aria-hidden="true"></span>
   </div>
 </div>
