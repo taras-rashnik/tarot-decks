@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import { ShapePosition } from "../../model/shape-position";
 import * as _ from "lodash";
+import { DomSanitizer, SafeStyle } from "@angular/platform-browser";
 
 @Component({
   selector: 'app-resizable-frame',
@@ -18,7 +19,7 @@ export class ResizableFrameComponent implements OnInit {
     location: {
       left: 10,
       top: 10,
-      rotation: 0
+      rotation: 10
     },
     size: {
       width: 50,
@@ -27,16 +28,21 @@ export class ResizableFrameComponent implements OnInit {
   };
 
   styles: any = {};
+  safeTransform: SafeStyle;
 
-  constructor() { }
+  constructor(private sanitizer: DomSanitizer) { 
+    // this.safeTransform = this.sanitizer.bypassSecurityTrustStyle('rotate(45deg)');
+  }
 
   updateStyles() {
     this.styles = {
       'left.px': `${this.position.location.left}`,
       'top.px': `${this.position.location.top}`,
       'width.px': `${this.position.size.width}`,
-      'height.px': `${this.position.size.height}`,
+      'height.px': `${this.position.size.height}`
     };
+
+    this.safeTransform = this.sanitizer.bypassSecurityTrustStyle(`rotate(${this.position.location.rotation}rad)`);
   }
 
   ngOnInit() {
@@ -44,8 +50,16 @@ export class ResizableFrameComponent implements OnInit {
 
     this.mouseHelper(this.rotate,
       ({ initialPosition, deltaX, deltaY }) => {
-        this.position.location.left = initialPosition.location.left + deltaX;
-        this.position.location.top = initialPosition.location.top + deltaY;
+        let ax = (initialPosition.size.height / 2) * Math.sin(initialPosition.location.rotation);
+        let ay = (initialPosition.size.height / 2) * Math.cos(initialPosition.location.rotation);
+
+        let cx = ax + deltaX;
+        let cy = ay - deltaY;
+
+        this.position.location.rotation = Math.atan2(cx, cy);
+
+        console.log(`ax: ${ax}, ay: ${ay}, cx: ${cx}, cy: ${cy}, rotation: ${this.position.location.rotation}`);
+
         this.updateStyles();
       });
 
