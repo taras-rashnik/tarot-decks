@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Observable } from "rxjs/Observable";
+import { ShapePosition } from "../../model/shape-position";
+import * as _ from "lodash";
 
 @Component({
   selector: 'app-resizable-frame',
@@ -10,11 +12,19 @@ export class ResizableFrameComponent implements OnInit {
 
   @ViewChild('rotate') rotate: ElementRef;
   @ViewChild('resize') resize: ElementRef;
+  @ViewChild('content') content: ElementRef;
 
-  @Input() left: number = 10;
-  @Input() top: number = 10;
-  @Input() width: number = 100;
-  @Input() height: number = 150;
+  @Input() position: ShapePosition = {
+    location: {
+      left: 10,
+      top: 10,
+      rotation: 0
+    },
+    size: {
+      width: 50,
+      height: 75
+    }
+  };
 
   styles: any = {};
 
@@ -22,23 +32,45 @@ export class ResizableFrameComponent implements OnInit {
 
   updateStyles() {
     this.styles = {
-      'left.px': `${this.left}`,
-      'top.px': `${this.top}`,
-      'width.px': `${this.width}`,
-      'height.px': `${this.height}`,
+      'left.px': `${this.position.location.left}`,
+      'top.px': `${this.position.location.top}`,
+      'width.px': `${this.position.size.width}`,
+      'height.px': `${this.position.size.height}`,
     };
   }
 
   ngOnInit() {
     this.updateStyles();
 
-    Observable.fromEvent(this.rotate.nativeElement, 'mousedown')
+    this.mouseHelper(this.rotate,
+      ({ initialPosition, deltaX, deltaY }) => {
+        this.position.location.left = initialPosition.location.left + deltaX;
+        this.position.location.top = initialPosition.location.top + deltaY;
+        this.updateStyles();
+      });
+
+    this.mouseHelper(this.resize,
+      ({ initialPosition, deltaX, deltaY }) => {
+        this.position.size.width = initialPosition.size.width + deltaX;
+        this.position.size.height = initialPosition.size.height + deltaY;
+        this.updateStyles();
+      });
+
+    this.mouseHelper(this.content,
+      ({ initialPosition, deltaX, deltaY }) => {
+        this.position.location.left = initialPosition.location.left + deltaX;
+        this.position.location.top = initialPosition.location.top + deltaY;
+        this.updateStyles();
+      });
+  }
+
+  mouseHelper(element: ElementRef, onMouseMove: any) {
+    Observable.fromEvent(element.nativeElement, 'mousedown')
       .flatMap((mdevt: MouseEvent) => {
         mdevt.preventDefault();
         // console.log(mdevt);
 
-        let initialLeft: number = +this.left;
-        let initialTop: number = +this.top;
+        let initialPosition = _.cloneDeep(this.position);
         let startX: number = mdevt.clientX;
         let startY: number = mdevt.clientY;
 
@@ -46,22 +78,18 @@ export class ResizableFrameComponent implements OnInit {
           .map((mmevt: MouseEvent) => {
             mmevt.preventDefault();
 
-            let newLeft: number = initialLeft + (mmevt.clientX - startX);
-            let newTop: number = initialTop + (mmevt.clientY - startY);
+            let deltaX: number = mmevt.clientX - startX;
+            let deltaY: number = mmevt.clientY - startY;
             return {
-              x: newLeft,
-              y: newTop
+              initialPosition: initialPosition,
+              deltaX: deltaX,
+              deltaY: deltaY
             };
           })
           .takeUntil(Observable.fromEvent(document, 'mouseup'));
       })
-      .subscribe((p) => {
-        // console.log(p);
-        this.left = p.x;
-        this.top = p.y;
-        this.updateStyles();
+      .subscribe((delta) => {
+        onMouseMove(delta);
       });
-
   }
-
 }
