@@ -30,7 +30,7 @@ export class ResizableFrameComponent implements OnInit {
   styles: any = {};
   safeTransform: SafeStyle;
 
-  constructor(private sanitizer: DomSanitizer) { 
+  constructor(private sanitizer: DomSanitizer) {
     // this.safeTransform = this.sanitizer.bypassSecurityTrustStyle('rotate(45deg)');
   }
 
@@ -65,8 +65,24 @@ export class ResizableFrameComponent implements OnInit {
 
     this.mouseHelper(this.resize,
       ({ initialPosition, deltaX, deltaY }) => {
-        this.position.size.width = initialPosition.size.width + deltaX;
-        this.position.size.height = initialPosition.size.height + deltaY;
+        let ax = (initialPosition.size.width / 2) * Math.cos(initialPosition.location.rotation);
+        let ay = (-initialPosition.size.width / 2) * Math.sin(initialPosition.location.rotation);
+
+        let bx = (-initialPosition.size.height / 2) * Math.sin(initialPosition.location.rotation);
+        let by = (-initialPosition.size.height / 2) * Math.cos(initialPosition.location.rotation);
+
+        let cx = ax + bx;
+        let cy = ay + by;
+
+        let dx = cx + deltaX / 2;
+        let dy = cy - deltaY / 2;
+
+        let rate = Math.max(dx / cx, dy / cy);
+
+        this.position.size.width = initialPosition.size.width * rate;
+        this.position.size.height = initialPosition.size.height * rate;
+        console.log(`ax: ${ax}, ay: ${ay}, bx: ${bx}, by: ${by}, cx: ${cx}, cy: ${cy}, dx: ${dx}, dy: ${dy}, rate: ${rate}, ${this.position.size.width}, ${this.position.size.height}`);
+
         this.updateStyles();
       });
 

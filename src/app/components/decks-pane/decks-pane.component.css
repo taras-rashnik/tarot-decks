@@ -16,6 +16,8 @@
 
     box-sizing: content-box;
     border: 3px solid lightgoldenrodyellow;
+    
+    position: relative;
 }
 
 .image-holder:hover{
