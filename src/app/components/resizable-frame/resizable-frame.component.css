@@ -7,14 +7,18 @@
 
 .rotate{
   text-align: center;
-  flex: 0 auto;
+  flex: 0 0 auto;
 }
 
 .resize{
   text-align: right;
-  flex: 0 auto;
+  flex: 0 0 auto;
 }
 
 .content{
-  flex: 1;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+  background-color: pink;
+  position: relative;
 }
