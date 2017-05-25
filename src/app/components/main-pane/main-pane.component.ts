@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Card } from "../../model/card";
 import { CardMoniker } from "../../model/card-moniker";
 import { DecksService } from "../../services/decks.service";
+import { CardHolder } from "../../model/card-holder";
 
 @Component({
   selector: 'app-main-pane',
@@ -9,7 +10,7 @@ import { DecksService } from "../../services/decks.service";
   styleUrls: ['./main-pane.component.css']
 })
 export class MainPaneComponent implements OnInit {
-  _cards: Card[] = [];
+  _cardHolders: CardHolder[] = [];
 
   constructor(private decksService: DecksService) { }
 
@@ -18,19 +19,24 @@ export class MainPaneComponent implements OnInit {
 
   onDrop(event: DragEvent): void {
     event.preventDefault();
-    console.log('onDrop');
+    console.log('onDrop', event);
     let text = event.dataTransfer.getData("text");
     let cardMoniker: CardMoniker = JSON.parse(text);
-    // card.left = event.clientX;
-    // card.top = event.clientY;
     console.log(cardMoniker);
-    
+
     this.decksService.getDeck(cardMoniker.deckId)
       .subscribe(d => {
         let card = d.getCard(cardMoniker.cardId);
-        this._cards.push(card);
+
+        let cardHolder: CardHolder = {
+          card: card,
+          position: { 
+            location: { left: event.offsetX - cardMoniker.offsetX, top: event.offsetY - cardMoniker.offsetY, rotation: 0 }, 
+            size: { width: cardMoniker.clientWidth + 20, height: cardMoniker.clientHeight + 20 } }
+        };
+
+        this._cardHolders.push(cardHolder);
       });
-    //this._cards.push(cardMoniker);
   }
 
   onDdragover(event: DragEvent): void {

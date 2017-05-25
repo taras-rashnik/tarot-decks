@@ -22,9 +22,15 @@ export class CardsPaneComponent implements OnInit {
   }
 
   onDragStart(event: DragEvent, card: Card) : void {
-    console.log('onDragStart');
+    console.log('onDragStart: ', event, event.offsetX, event.offsetY);
 
     event.dataTransfer.dropEffect = "copy";
-    event.dataTransfer.setData("text", JSON.stringify(card.moniker));
+    let moniker = card.moniker;
+    moniker.offsetX = event.offsetX;
+    moniker.offsetY = event.offsetY;
+    let target: any = event.target;
+    moniker.clientWidth = target.clientWidth;
+    moniker.clientHeight = target.clientHeight;
+    event.dataTransfer.setData("text", JSON.stringify(moniker));
   }
 }
