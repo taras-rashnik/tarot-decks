@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Card } from "../../model/card";
+import { CardMoniker } from "../../model/card-moniker";
+import { DecksService } from "../../services/decks.service";
 
 @Component({
   selector: 'app-main-pane',
@@ -9,7 +11,7 @@ import { Card } from "../../model/card";
 export class MainPaneComponent implements OnInit {
   _cards: Card[] = [];
 
-  constructor() { }
+  constructor(private decksService: DecksService) { }
 
   ngOnInit() {
   }
@@ -18,35 +20,21 @@ export class MainPaneComponent implements OnInit {
     event.preventDefault();
     console.log('onDrop');
     let text = event.dataTransfer.getData("text");
-    let card: Card = JSON.parse(text);
+    let cardMoniker: CardMoniker = JSON.parse(text);
     // card.left = event.clientX;
     // card.top = event.clientY;
-    console.log(card);
-    this._cards.push(card);
+    console.log(cardMoniker);
+    
+    this.decksService.getDeck(cardMoniker.deckId)
+      .subscribe(d => {
+        let card = d.getCard(cardMoniker.cardId);
+        this._cards.push(card);
+      });
+    //this._cards.push(cardMoniker);
   }
 
   onDdragover(event: DragEvent): void {
     event.preventDefault();
     // event.dataTransfer.dropEffect = "copy";
-  }
-
-  onDragStart(event: DragEvent, card: Card): void {
-    console.log('onDragStart');
-
-    event.dataTransfer.dropEffect = "move";
-    event.dataTransfer.setData("text", JSON.stringify(card));
-  }
-
-  onDragEnd(event: DragEvent, card: Card): void {
-    console.log('onDragEnd');
-
-    if (event.dataTransfer.dropEffect === "move") {
-      let index = this._cards.findIndex(c => c === card);
-      if (index >= 0) {
-        this._cards.splice(index, 1);
-      }
-    }
-    else
-      throw new Error("test");
   }
 }

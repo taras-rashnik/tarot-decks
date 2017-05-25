@@ -25,6 +25,6 @@ export class CardsPaneComponent implements OnInit {
     console.log('onDragStart');
 
     event.dataTransfer.dropEffect = "copy";
-    event.dataTransfer.setData("text", JSON.stringify(card));
+    event.dataTransfer.setData("text", JSON.stringify(card.moniker));
   }
 }

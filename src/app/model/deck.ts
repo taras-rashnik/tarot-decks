@@ -25,6 +25,10 @@ export class Deck {
     // this.deckPicture = new Card(this, this.calculateRow(deckInfo.deckPictureIndex, deckInfo.cardsInRow), this.calculateColumn(deckInfo.deckPictureIndex, deckInfo.cardsInRow));
   }
 
+  getCard(id: number): Card {
+    return this.cards.find(c => c.id === id);
+  }
+
   private calculateRow(index: number, cardsInRow: number) : number {
     return Math.floor(index / cardsInRow);
   }

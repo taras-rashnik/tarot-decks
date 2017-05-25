@@ -2,11 +2,9 @@
   main-pane works!
   <ul>
     <li *ngFor="let card of _cards">
-      <div class="image-box" [style.left.px]="card.left" [style.top.px]="card.top">
-        <div class="image" [ngStyle]="card.picture.styles" 
-        draggable="true" (dragstart)="onDragStart($event, card)" (dragend)="onDragEnd($event, card)">
-        </div>
-      </div>
+      <app-resizable-frame [position]="{location: {left: 400,top: 250,rotation: 0}, size: {width: 150,height: 200}}">
+        <app-sprite [card]="card"></app-sprite>
+      </app-resizable-frame>
       {{card.name}}
     </li>
   </ul>
