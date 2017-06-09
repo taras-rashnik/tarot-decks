@@ -18,7 +18,7 @@ export class DecksService {
       return Observable.of(this.decks);
     }
 
-    return this.http.get("src/assets/decks/decks.json")
+    return this.http.get("./assets/decks/decks.json")
       .map((res: Response) => {
         let deckInfos: DeckInfo[] = res.json();
         this.decks = deckInfos.map(di => new Deck(di));
