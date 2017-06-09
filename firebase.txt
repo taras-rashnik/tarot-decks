@@ -1,0 +1,13 @@
+<script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDpsiHiOO5mm32mdPNx8v5jjOFN8-tx--I",
+    authDomain: "tarot-cards-57b02.firebaseapp.com",
+    databaseURL: "https://tarot-cards-57b02.firebaseio.com",
+    projectId: "tarot-cards-57b02",
+    storageBucket: "tarot-cards-57b02.appspot.com",
+    messagingSenderId: "790594907781"
+  };
+  firebase.initializeApp(config);
+</script>

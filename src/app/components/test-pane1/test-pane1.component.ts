@@ -3,6 +3,9 @@ import { DecksService } from "../../services/decks.service";
 import { Deck } from "../../model/deck";
 import { CardHolder } from "../../model/card-holder";
 
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
+
 @Component({
   selector: 'app-test-pane1',
   templateUrl: './test-pane1.component.html',

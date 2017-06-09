@@ -19,6 +19,20 @@ import { TestPane1Component } from './components/test-pane1/test-pane1.component
 import { SpriteComponent } from './components/sprite/sprite.component';
 import { ResizableFrameComponent } from './components/resizable-frame/resizable-frame.component';
 
+import { AngularFireModule  } from 'angularfire2';
+
+// New imports to update based on AngularFire2 version 4
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyDpsiHiOO5mm32mdPNx8v5jjOFN8-tx--I",
+  authDomain: "tarot-cards-57b02.firebaseapp.com",
+  databaseURL: "https://tarot-cards-57b02.firebaseio.com",
+  storageBucket: "tarot-cards-57b02.appspot.com",
+  messagingSenderId: "790594907781"
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +49,10 @@ import { ResizableFrameComponent } from './components/resizable-frame/resizable-
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   providers: [
     SessionService,
