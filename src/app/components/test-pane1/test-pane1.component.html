@@ -15,7 +15,7 @@
   </app-resizable-frame>
 
   <app-resizable-frame [position]="cardHolder.position">
-    <app-sprite [card]="cardHolder.card"></app-sprite>
+    <app-sprite [card]="getCard(cardHolder) | async"></app-sprite>
   </app-resizable-frame>
 
 </div>

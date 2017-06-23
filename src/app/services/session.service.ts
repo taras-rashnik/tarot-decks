@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Session } from "../model/session";
 import { FirebaseListObservable, AngularFireDatabase, FirebaseObjectObservable } from "angularfire2/database";
+import { CardHolder } from "../model/card-holder";
 
 @Injectable()
 export class SessionService {
@@ -16,11 +17,18 @@ export class SessionService {
     console.log('addSession name. this.sessions.length = ' + this.sessions.count);
   }
 
-  removeSessionById(id: string) {
-     this.sessions.remove(id);
+  removeSessionById(sessionId: string) {
+     this.sessions.remove(sessionId);
   }
 
-  getSessionById(id: number) : FirebaseObjectObservable<Session> {
-    return this.angularFirebase.object(`/sessions/${id}`);
+  getSessionById(sessionId: string) : FirebaseObjectObservable<Session> {
+    return this.angularFirebase.object(`/sessions/${sessionId}`);
+  }
+
+  getCardHolders(sessionId: string): FirebaseListObservable<CardHolder[]>{
+    console.log(`SessionService.getCardHolders(${sessionId})`);
+    let holders = this.angularFirebase.list(`/sessions/${sessionId}/cardholders`)
+    console.log(holders);
+    return holders;
   }
 }

@@ -1,11 +1,11 @@
 <div class="main" (drop)="onDrop($event)" (dragover)="onDdragover($event)">
   main-pane works!
   <ul>
-    <li *ngFor="let cardHolder of _cardHolders">
+    <li *ngFor="let cardHolder of cardHolders | async">
       <app-resizable-frame [position]="cardHolder.position">
-        <app-sprite [card]="cardHolder.card"></app-sprite>
+        <app-sprite [card]="getCard(cardHolder) | async"></app-sprite>
       </app-resizable-frame>
-      {{cardHolder.card.name}}
+      {{getCard(cardHolder).name | async}}
     </li>
   </ul>
 </div>

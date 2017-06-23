@@ -3,7 +3,7 @@
   <header class="header-pane">Header</header>
   <div class="horizontal-flex-container">
     <section class="main-pane">
-      <app-main-pane></app-main-pane>
+      <app-main-pane [cardHolders]="cardHolders"></app-main-pane>
     </section>
     <aside class="decks-pane">
       <app-decks-pane (deckSelected)="onDeckSelected($event)"></app-decks-pane>

@@ -5,6 +5,8 @@ import { CardHolder } from "../../model/card-holder";
 
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { Card } from "../../model/card";
+import { Observable } from "rxjs/Observable";
 
 @Component({
   selector: 'app-test-pane1',
@@ -23,10 +25,15 @@ export class TestPane1Component implements OnInit {
       this.decks = decks;
 
       this.cardHolder = {
-        card: this.decks[3].cards[15],
+        cardId: this.decks[3].cards[15].id,
+        deckId: this.decks[3].deckInfo.id,
         position: {location: {left: 600,top: 250,rotation: 0}, size: {width: 200,height: 300}}
       };
     });
+  }
+
+  getCard(cardHolder: CardHolder): Observable<Card>{
+    return this.decksService.getDeck(cardHolder.deckId).map(d => {return d.getCard(cardHolder.cardId)});
   }
 
 }
