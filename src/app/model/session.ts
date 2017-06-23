@@ -1,8 +1,7 @@
 import { Deck } from "./deck";
 
 export class Session {
-    id: number = Date.now();
-    selectedDeck: Deck;
+    selectedDeckId: number;
     
     constructor(private name: string){
     }

@@ -10,7 +10,7 @@
     </aside>
   </div>
   <aside class="cards-pane">
-    <app-cards-pane [selectedDeck]="session.selectedDeck"></app-cards-pane>
+    <app-cards-pane [selectedDeck]="(selectedDeck | async)"></app-cards-pane>
   </aside>
   <footer class="footer-pane">Footer</footer>
 </div>

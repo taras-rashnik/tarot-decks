@@ -41,9 +41,9 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let session of Sessions">
-            <td><a  routerLink="/sessions/{{session.id}}" >{{session.name}}</a></td>
-            <td><button (click)="removeSession(session)">Remove</button></td>
+          <tr *ngFor="let session of Sessions | async">
+            <td><a  routerLink="/sessions/{{session.$key}}" >{{session.name}}</a></td>
+            <td><button (click)="removeSessionById(session.$key)">Remove</button></td>
           </tr>
         </tbody>
       </table>

@@ -1,25 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Session } from "../model/session";
+import { FirebaseListObservable, AngularFireDatabase, FirebaseObjectObservable } from "angularfire2/database";
 
 @Injectable()
 export class SessionService {
-  sessions: Session[] = [];
+  public sessions: FirebaseListObservable<Session[]>;
 
-  constructor() { 
+  constructor(private angularFirebase: AngularFireDatabase) { 
     console.log('SessionService initialized');
+    this.sessions = angularFirebase.list('/sessions');
   }
 
   addSession(name) {
     this.sessions.push(new Session(name));
-    console.log('addSession name. this.sessions.length = ' + this.sessions.length);
+    console.log('addSession name. this.sessions.length = ' + this.sessions.count);
   }
 
-  removeSession(session: Session) {
-    var index: number = this.sessions.indexOf(session, 0);
-    this.sessions.splice(index, 1);
+  removeSessionById(id: string) {
+     this.sessions.remove(id);
   }
 
-  getSessionById(id: number) : Session {
-    return this.sessions.find(s => s.id === id);
+  getSessionById(id: number) : FirebaseObjectObservable<Session> {
+    return this.angularFirebase.object(`/sessions/${id}`);
   }
 }

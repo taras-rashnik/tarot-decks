@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Session } from '../../model/session';
 import { SessionService } from "../../services/session.service";
+import { FirebaseListObservable } from "angularfire2/database";
 
 @Component({
   selector: 'app-sessions',
@@ -14,13 +15,9 @@ export class SessionsComponent implements OnInit {
     console.log('SessionsComponent initialized');
   }
 
-  ngOnInit() {
-    this.sessionService.addSession("Session 1");
-    this.sessionService.addSession("Session 2");
-    this.sessionService.addSession("Session 3");
-  }
+  ngOnInit() {  }
 
-  get Sessions() : Session[] {
+  get Sessions() : FirebaseListObservable<Session[]> {
     return this.sessionService.sessions;
   }
 
@@ -28,7 +25,7 @@ export class SessionsComponent implements OnInit {
     this.sessionService.addSession(this.sessionName);
   }
 
-  removeSession(session: Session) {
-    this.sessionService.removeSession(session);
+  removeSessionById(id: string) {
+    this.sessionService.removeSessionById(id);
   }
 }
