@@ -4,10 +4,9 @@ import { ActivatedRoute, Router, Params } from "@angular/router";
 import { Session } from "../../model/session";
 import { SessionService } from "../../services/session.service";
 import { Deck } from "../../model/deck";
-import { FirebaseObjectObservable, FirebaseListObservable } from "angularfire2/database";
+import { FirebaseObjectObservable } from "angularfire2/database";
 import { DecksService } from "../../services/decks.service";
 import { Observable } from "rxjs/Observable";
-import { CardHolder } from "../../model/card-holder";
 
 @Component({
   selector: 'cards-table',
@@ -17,7 +16,7 @@ import { CardHolder } from "../../model/card-holder";
 export class CardsTableComponent implements OnInit {
   session: FirebaseObjectObservable<Session>;
   selectedDeck: Observable<Deck>;
-  cardHolders: FirebaseListObservable<CardHolder[]>;
+  sessionId: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -27,22 +26,17 @@ export class CardsTableComponent implements OnInit {
   }
 
   onDeckSelected(deck: Deck): void {
-    console.log('onDeckSelected');
     this.session.update({ selectedDeckId: deck.deckInfo.id });
   }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-      let sessionId = params['id'];
-      this.session = this.sessionService.getSessionById(sessionId);
+      this.sessionId = params['id'];
+      this.session = this.sessionService.getSessionById(this.sessionId);
       this.selectedDeck = this.session.switchMap(
         s => {
-          console.log('this.session.switchMap');
           return this.decksService.getDeck(s.selectedDeckId);
         });
-
-      console.log('CardsTableComponent.ngOnInit');
-      this.cardHolders = this.sessionService.getCardHolders(sessionId);
     });
   }
 }

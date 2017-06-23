@@ -4,7 +4,9 @@ import { CardMoniker } from "../../model/card-moniker";
 import { DecksService } from "../../services/decks.service";
 import { CardHolder } from "../../model/card-holder";
 import { Observable } from "rxjs/Observable";
-import { FirebaseListObservable } from "angularfire2/database";
+import { FirebaseListObservable, FirebaseObjectObservable } from "angularfire2/database";
+import { SessionService } from "../../services/session.service";
+import { ShapePosition } from "../../model/shape-position";
 
 @Component({
   selector: 'app-main-pane',
@@ -12,11 +14,15 @@ import { FirebaseListObservable } from "angularfire2/database";
   styleUrls: ['./main-pane.component.css']
 })
 export class MainPaneComponent implements OnInit {
-  @Input() cardHolders: FirebaseListObservable<CardHolder[]>;
+  @Input() sessionId: string;
+  cardHolders: FirebaseListObservable<CardHolder[]>;
 
-  constructor(private decksService: DecksService) { }
+  constructor(
+    private decksService: DecksService,
+    private sessionService: SessionService) {}
 
   ngOnInit() {
+    this.cardHolders = this.sessionService.getCardHolders(this.sessionId);
   }
 
   onDrop(event: DragEvent): void {
@@ -24,7 +30,7 @@ export class MainPaneComponent implements OnInit {
     console.log('onDrop', event);
     let text = event.dataTransfer.getData("text");
     let cardMoniker: CardMoniker = JSON.parse(text);
-    console.log(cardMoniker);
+    // console.log(cardMoniker);
 
     this.decksService.getDeck(cardMoniker.deckId)
       .subscribe(d => {
@@ -39,8 +45,6 @@ export class MainPaneComponent implements OnInit {
           }
         };
 
-        console.log(`before this.cardHolders.push`);
-        console.log(this.cardHolders);
         this.cardHolders.push(cardHolder);
       });
   }
@@ -52,5 +56,9 @@ export class MainPaneComponent implements OnInit {
 
   getCard(cardHolder: CardHolder): Observable<Card> {
     return this.decksService.getDeck(cardHolder.deckId).map(d => { return d.getCard(cardHolder.cardId) });
+  }
+
+  getCardHolderPosition(cardHolderId: string): FirebaseObjectObservable<ShapePosition> {
+    return this.sessionService.getCardHolderPosition(this.sessionId, cardHolderId);
   }
 }

@@ -3,6 +3,7 @@ import { Observable } from "rxjs/Observable";
 import { ShapePosition } from "../../model/shape-position";
 import * as _ from "lodash";
 import { DomSanitizer, SafeStyle } from "@angular/platform-browser";
+import { FirebaseObjectObservable } from "angularfire2/database";
 
 @Component({
   selector: 'app-resizable-frame',
@@ -14,18 +15,25 @@ export class ResizableFrameComponent implements OnInit {
   @ViewChild('rotate') rotate: ElementRef;
   @ViewChild('resize') resize: ElementRef;
   @ViewChild('content') content: ElementRef;
+  _position$: FirebaseObjectObservable<ShapePosition>;
+  _position: ShapePosition;
 
-  @Input() position: ShapePosition = {
-    location: {
-      left: 10,
-      top: 10,
-      rotation: 10
-    },
-    size: {
-      width: 50,
-      height: 75
-    }
-  };
+  @Input() set position$(pos: FirebaseObjectObservable<ShapePosition>) {
+    this._position$ = pos;
+
+    pos.subscribe(p => {
+      this._position = p;
+
+      this.styles = {
+        'left.px': `${p.location.left}`,
+        'top.px': `${p.location.top}`,
+        'width.px': `${p.size.width}`,
+        'height.px': `${p.size.height}`
+      };
+
+      this.safeTransform = this.sanitizer.bypassSecurityTrustStyle(`rotate(${p.location.rotation}rad)`);
+    })
+  }
 
   styles: any = {};
   safeTransform: SafeStyle;
@@ -34,20 +42,7 @@ export class ResizableFrameComponent implements OnInit {
     // this.safeTransform = this.sanitizer.bypassSecurityTrustStyle('rotate(45deg)');
   }
 
-  updateStyles() {
-    this.styles = {
-      'left.px': `${this.position.location.left}`,
-      'top.px': `${this.position.location.top}`,
-      'width.px': `${this.position.size.width}`,
-      'height.px': `${this.position.size.height}`
-    };
-
-    this.safeTransform = this.sanitizer.bypassSecurityTrustStyle(`rotate(${this.position.location.rotation}rad)`);
-  }
-
   ngOnInit() {
-    this.updateStyles();
-
     this.mouseHelper(this.rotate,
       ({ initialPosition, deltaX, deltaY }) => {
         let ax = (initialPosition.size.height / 2) * Math.sin(initialPosition.location.rotation);
@@ -56,11 +51,10 @@ export class ResizableFrameComponent implements OnInit {
         let cx = ax + deltaX;
         let cy = ay - deltaY;
 
-        this.position.location.rotation = Math.atan2(cx, cy);
+        let rotation = Math.atan2(cx, cy);
+        this._position$.update({location: {rotation: rotation, left: initialPosition.location.left, top: initialPosition.location.top}});
 
-        console.log(`ax: ${ax}, ay: ${ay}, cx: ${cx}, cy: ${cy}, rotation: ${this.position.location.rotation}`);
-
-        this.updateStyles();
+        // console.log(`ax: ${ax}, ay: ${ay}, cx: ${cx}, cy: ${cy}, rotation: ${this.position$.location.rotation}`);
       });
 
     this.mouseHelper(this.resize,
@@ -79,18 +73,17 @@ export class ResizableFrameComponent implements OnInit {
 
         let rate = Math.max(dx / cx, dy / cy);
 
-        this.position.size.width = initialPosition.size.width * rate;
-        this.position.size.height = initialPosition.size.height * rate;
-        console.log(`ax: ${ax}, ay: ${ay}, bx: ${bx}, by: ${by}, cx: ${cx}, cy: ${cy}, dx: ${dx}, dy: ${dy}, rate: ${rate}, ${this.position.size.width}, ${this.position.size.height}`);
-
-        this.updateStyles();
+        let width = initialPosition.size.width * rate;
+        let height = initialPosition.size.height * rate;
+        this._position$.update({size: {width: width, height: height}});
+        // console.log(`ax: ${ax}, ay: ${ay}, bx: ${bx}, by: ${by}, cx: ${cx}, cy: ${cy}, dx: ${dx}, dy: ${dy}, rate: ${rate}, ${this.position$.size.width}, ${this.position$.size.height}`);
       });
 
     this.mouseHelper(this.content,
       ({ initialPosition, deltaX, deltaY }) => {
-        this.position.location.left = initialPosition.location.left + deltaX;
-        this.position.location.top = initialPosition.location.top + deltaY;
-        this.updateStyles();
+        let left = initialPosition.location.left + deltaX;
+        let top = initialPosition.location.top + deltaY;
+        this._position$.update({location: {left: left, top: top, rotation: initialPosition.location.rotation}});
       });
   }
 
@@ -100,7 +93,7 @@ export class ResizableFrameComponent implements OnInit {
         mdevt.preventDefault();
         // console.log(mdevt);
 
-        let initialPosition = _.cloneDeep(this.position);
+        let initialPosition = _.cloneDeep(this._position);
         let startX: number = mdevt.clientX;
         let startY: number = mdevt.clientY;
 

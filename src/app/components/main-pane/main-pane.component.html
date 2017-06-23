@@ -2,10 +2,11 @@
   main-pane works!
   <ul>
     <li *ngFor="let cardHolder of cardHolders | async">
-      <app-resizable-frame [position]="cardHolder.position">
+      <!--<app-resizable-frame [position]="cardHolder.position">-->
+      <app-resizable-frame [position$]="getCardHolderPosition(cardHolder.$key)">
         <app-sprite [card]="getCard(cardHolder) | async"></app-sprite>
       </app-resizable-frame>
-      {{getCard(cardHolder).name | async}}
+      {{cardHolder.$key}}
     </li>
   </ul>
 </div>
