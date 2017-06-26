@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import { ShapePosition } from "../../model/shape-position";
 import * as _ from "lodash";
@@ -17,6 +17,12 @@ export class ResizableFrameComponent implements OnInit {
   @ViewChild('content') content: ElementRef;
   _position$: FirebaseObjectObservable<ShapePosition>;
   _position: ShapePosition;
+  styles: any = {};
+  safeTransform: SafeStyle;
+
+  constructor(private sanitizer: DomSanitizer) {
+    // this.safeTransform = this.sanitizer.bypassSecurityTrustStyle('rotate(45deg)');
+  }
 
   @Input() set position$(pos: FirebaseObjectObservable<ShapePosition>) {
     this._position$ = pos;
@@ -24,22 +30,23 @@ export class ResizableFrameComponent implements OnInit {
     pos.subscribe(p => {
       this._position = p;
 
-      this.styles = {
-        'left.px': `${p.location.left}`,
-        'top.px': `${p.location.top}`,
-        'width.px': `${p.size.width}`,
-        'height.px': `${p.size.height}`
-      };
+      if (p.location && p.size) {
+        this.styles = {
+          'left.px': `${p.location.left}`,
+          'top.px': `${p.location.top}`,
+          'width.px': `${p.size.width}`,
+          'height.px': `${p.size.height}`
+        };
 
-      this.safeTransform = this.sanitizer.bypassSecurityTrustStyle(`rotate(${p.location.rotation}rad)`);
+        this.safeTransform = this.sanitizer.bypassSecurityTrustStyle(`rotate(${p.location.rotation}rad)`);
+      }
     })
   }
 
-  styles: any = {};
-  safeTransform: SafeStyle;
+  @Output() onDelete = new EventEmitter();
 
-  constructor(private sanitizer: DomSanitizer) {
-    // this.safeTransform = this.sanitizer.bypassSecurityTrustStyle('rotate(45deg)');
+  onDeleteClick(): void {
+    this.onDelete.emit();
   }
 
   ngOnInit() {
@@ -52,7 +59,7 @@ export class ResizableFrameComponent implements OnInit {
         let cy = ay - deltaY;
 
         let rotation = Math.atan2(cx, cy);
-        this._position$.update({location: {rotation: rotation, left: initialPosition.location.left, top: initialPosition.location.top}});
+        this._position$.update({ location: { rotation: rotation, left: initialPosition.location.left, top: initialPosition.location.top } });
 
         // console.log(`ax: ${ax}, ay: ${ay}, cx: ${cx}, cy: ${cy}, rotation: ${this.position$.location.rotation}`);
       });
@@ -75,7 +82,7 @@ export class ResizableFrameComponent implements OnInit {
 
         let width = initialPosition.size.width * rate;
         let height = initialPosition.size.height * rate;
-        this._position$.update({size: {width: width, height: height}});
+        this._position$.update({ size: { width: width, height: height } });
         // console.log(`ax: ${ax}, ay: ${ay}, bx: ${bx}, by: ${by}, cx: ${cx}, cy: ${cy}, dx: ${dx}, dy: ${dy}, rate: ${rate}, ${this.position$.size.width}, ${this.position$.size.height}`);
       });
 
@@ -83,7 +90,7 @@ export class ResizableFrameComponent implements OnInit {
       ({ initialPosition, deltaX, deltaY }) => {
         let left = initialPosition.location.left + deltaX;
         let top = initialPosition.location.top + deltaY;
-        this._position$.update({location: {left: left, top: top, rotation: initialPosition.location.rotation}});
+        this._position$.update({ location: { left: left, top: top, rotation: initialPosition.location.rotation } });
       });
   }
 

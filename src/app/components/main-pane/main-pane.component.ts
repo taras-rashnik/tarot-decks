@@ -19,10 +19,15 @@ export class MainPaneComponent implements OnInit {
 
   constructor(
     private decksService: DecksService,
-    private sessionService: SessionService) {}
+    private sessionService: SessionService) { }
 
   ngOnInit() {
     this.cardHolders = this.sessionService.getCardHolders(this.sessionId);
+  }
+
+  onDelete(id: string) {
+    console.log(`MainPaneComponent.onDelete(${id})`);
+    this.cardHolders.remove(id);
   }
 
   onDrop(event: DragEvent): void {
