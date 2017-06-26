@@ -1,5 +1,11 @@
-<div id="main" class="main" (drop)="onDrop($event)" (dragover)="onDdragover($event)" (click)="unselectAll($event)">
+<div id="main" #main class="main"  tabindex="0"
+    (drop)="onDrop($event)" 
+    (dragover)="onDdragover($event)" 
+    (click)="unselectAll($event)" 
+    (keydown)="onKeydown($event)">
+
   Main
+
   <ul style="list-style-type: none;">
     <li *ngFor="let cardHolder of cardHolders | async; let i = index">
       <!--<app-resizable-frame [position]="cardHolder.position">-->

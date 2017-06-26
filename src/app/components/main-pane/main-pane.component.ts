@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Card } from "../../model/card";
 import { CardMoniker } from "../../model/card-moniker";
 import { DecksService } from "../../services/decks.service";
@@ -14,6 +14,7 @@ import { ShapePosition } from "../../model/shape-position";
   styleUrls: ['./main-pane.component.css']
 })
 export class MainPaneComponent implements OnInit {
+  @ViewChild('main') main: ElementRef;
   @Input() sessionId: string;
   cardHolders: FirebaseListObservable<CardHolder[]>;
   selectedHolderId: string;
@@ -24,6 +25,7 @@ export class MainPaneComponent implements OnInit {
 
   ngOnInit() {
     this.cardHolders = this.sessionService.getCardHolders(this.sessionId);
+    this.main.nativeElement.focus();
   }
 
   onSelect(holderId: string): void {
@@ -47,6 +49,13 @@ export class MainPaneComponent implements OnInit {
     this.cardHolders.remove(holderId);
   }
 
+  onKeydown(event: KeyboardEvent): void {
+    console.log(event);
+    if (event.key === "Delete" && this.selectedHolderId) {
+      this.onDelete(this.selectedHolderId);
+    }
+  }
+
   onDrop(event: DragEvent): void {
     event.preventDefault();
     console.log('onDrop', event);
@@ -68,7 +77,10 @@ export class MainPaneComponent implements OnInit {
         };
 
         this.cardHolders.push(cardHolder)
-          .then(e => {this.onSelect(e.key);});
+          .then(e => { 
+            this.onSelect(e.key); 
+            this.main.nativeElement.focus();
+          });
       });
   }
 
