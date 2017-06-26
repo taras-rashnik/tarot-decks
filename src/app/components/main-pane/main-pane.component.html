@@ -1,12 +1,14 @@
-<div class="main" (drop)="onDrop($event)" (dragover)="onDdragover($event)">
-  main-pane works!
-  <ul>
+<div id="main" class="main" (drop)="onDrop($event)" (dragover)="onDdragover($event)" (click)="unselectAll($event)">
+  Main
+  <ul style="list-style-type: none;">
     <li *ngFor="let cardHolder of cardHolders | async; let i = index">
       <!--<app-resizable-frame [position]="cardHolder.position">-->
-      <app-resizable-frame [position$]="getCardHolderPosition(cardHolder.$key)" (onDelete)="onDelete(cardHolder.$key)">
-        <app-sprite [card]="getCard(cardHolder) | async"></app-sprite>
+      <app-resizable-frame 
+          [position$]="getCardHolderPosition(cardHolder.$key)" 
+          (onDelete)="onDelete(cardHolder.$key)"
+          [selected]="isSelected(cardHolder.$key)">
+        <app-sprite [card]="getCard(cardHolder) | async" (mousedown)="onSelect(cardHolder.$key)"></app-sprite>
       </app-resizable-frame>
-      {{cardHolder.$key}}
     </li>
   </ul>
 </div>

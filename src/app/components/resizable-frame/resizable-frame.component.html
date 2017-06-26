@@ -1,12 +1,12 @@
 <div class="container" [ngStyle]="styles" [style.transform]="safeTransform">
-  <div class="rotate">
+  <div class="rotate" [class.invisible]="!selected">
     <span #rotate class="glyphicon glyphicon-repeat" aria-hidden="true" style="cursor: ew-resize;"></span>
     <span #delete (click)="onDeleteClick()" class="glyphicon glyphicon-remove" aria-hidden="true" style="cursor: pointer; float: right;"></span>
   </div>
   <div class="content" #content style="cursor: move;">
     <ng-content></ng-content>
   </div>
-  <div class="resize">
+  <div class="resize" [class.invisible]="!selected">
     <span #resize class="glyphicon glyphicon-resize-full" aria-hidden="true" style="cursor: se-resize;"></span>
   </div>
 </div>

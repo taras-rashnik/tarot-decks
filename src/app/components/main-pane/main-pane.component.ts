@@ -16,6 +16,7 @@ import { ShapePosition } from "../../model/shape-position";
 export class MainPaneComponent implements OnInit {
   @Input() sessionId: string;
   cardHolders: FirebaseListObservable<CardHolder[]>;
+  selectedHolderId: string;
 
   constructor(
     private decksService: DecksService,
@@ -25,9 +26,25 @@ export class MainPaneComponent implements OnInit {
     this.cardHolders = this.sessionService.getCardHolders(this.sessionId);
   }
 
-  onDelete(id: string) {
-    console.log(`MainPaneComponent.onDelete(${id})`);
-    this.cardHolders.remove(id);
+  onSelect(holderId: string): void {
+    console.log(`MainPaneComponent.onSelect(${holderId})`);
+    this.selectedHolderId = holderId;
+  }
+
+  unselectAll(event: MouseEvent): void {
+    let target: any = event.target;
+    if (target.id === "main") {
+      console.log(event);
+      this.selectedHolderId = null;
+    }
+  }
+
+  isSelected(holderId: string): boolean {
+    return this.selectedHolderId === holderId;
+  }
+
+  onDelete(holderId: string) {
+    this.cardHolders.remove(holderId);
   }
 
   onDrop(event: DragEvent): void {
@@ -50,7 +67,8 @@ export class MainPaneComponent implements OnInit {
           }
         };
 
-        this.cardHolders.push(cardHolder);
+        this.cardHolders.push(cardHolder)
+          .then(e => {this.onSelect(e.key);});
       });
   }
 

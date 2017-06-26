@@ -1,6 +1,6 @@
 .container{
   position: absolute;
-  background-color: lightyellow;
+  background-color: transparent;
   display: flex;
   flex-direction: column;
 }
@@ -21,4 +21,8 @@
   flex-basis: auto;
   background-color: pink;
   position: relative;
+}
+
+.invisible{
+  visibility:hidden;
 }

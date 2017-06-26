@@ -24,6 +24,8 @@ export class ResizableFrameComponent implements OnInit {
     // this.safeTransform = this.sanitizer.bypassSecurityTrustStyle('rotate(45deg)');
   }
 
+  @Input() selected: boolean;
+
   @Input() set position$(pos: FirebaseObjectObservable<ShapePosition>) {
     this._position$ = pos;
 
