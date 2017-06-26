@@ -25,19 +25,22 @@ export class MainPaneComponent implements OnInit {
 
   ngOnInit() {
     this.cardHolders = this.sessionService.getCardHolders(this.sessionId);
-    this.main.nativeElement.focus();
   }
 
   onSelect(holderId: string): void {
     console.log(`MainPaneComponent.onSelect(${holderId})`);
     this.selectedHolderId = holderId;
+    this.main.nativeElement.focus();
   }
 
-  unselectAll(event: MouseEvent): void {
+  unselectAll(): void {
+    this.selectedHolderId = null;
+  }
+
+  onClick(event: MouseEvent): void {
     let target: any = event.target;
     if (target.id === "main") {
-      console.log(event);
-      this.selectedHolderId = null;
+      this.unselectAll();
     }
   }
 
@@ -50,10 +53,13 @@ export class MainPaneComponent implements OnInit {
   }
 
   onKeydown(event: KeyboardEvent): void {
-    console.log(event);
     if (event.key === "Delete" && this.selectedHolderId) {
       this.onDelete(this.selectedHolderId);
     }
+  }
+
+  onBlur(event: KeyboardEvent): void {
+    this.unselectAll();
   }
 
   onDrop(event: DragEvent): void {
@@ -79,7 +85,6 @@ export class MainPaneComponent implements OnInit {
         this.cardHolders.push(cardHolder)
           .then(e => { 
             this.onSelect(e.key); 
-            this.main.nativeElement.focus();
           });
       });
   }

@@ -1,8 +1,9 @@
 <div id="main" #main class="main"  tabindex="0"
     (drop)="onDrop($event)" 
     (dragover)="onDdragover($event)" 
-    (click)="unselectAll($event)" 
-    (keydown)="onKeydown($event)">
+    (click)="onClick($event)" 
+    (keydown)="onKeydown($event)"
+    (blur)="onBlur($event)">
 
   Main
 
