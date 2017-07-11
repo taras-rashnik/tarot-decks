@@ -1,5 +1,19 @@
 [
   {
+    "id": 5,
+    "name": "Inner Active Cards",
+    "imageUrl": "./assets/decks/Inner_Active_Cards_1.jpg",
+    "cardsWidth": 232,
+    "cardsHeight": 415,
+    "horizontalGap": 10,
+    "verticalGap": 10,
+    "cardsInRow": 14,
+    "cardsInColumn": 6,
+    "cardsNumber": 56,
+    "backSideIndex": 57,
+    "deckPictureIndex": 58
+  },
+  {
     "id": 1,
     "name": "the first deck",
     "imageUrl": "./assets/decks/deck1/tarot_deck_01.png",
