@@ -82,6 +82,7 @@ export class MainPaneComponent implements OnInit {
         let cardHolder: CardHolder = {
           cardId: card.id,
           deckId: cardMoniker.deckId,
+          showBackSide: false,
           position: {
             location: { left: event.offsetX - cardMoniker.offsetX, top: event.offsetY - cardMoniker.offsetY, rotation: 0 },
             size: { width: cardMoniker.clientWidth + 20, height: cardMoniker.clientHeight + 20 }

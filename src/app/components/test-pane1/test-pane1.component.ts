@@ -27,6 +27,7 @@ export class TestPane1Component implements OnInit {
       this.cardHolder = {
         cardId: this.decks[3].cards[15].id,
         deckId: this.decks[3].deckInfo.id,
+        showBackSide: false,
         position: {location: {left: 600,top: 250,rotation: 0}, size: {width: 200,height: 300}}
       };
     });
