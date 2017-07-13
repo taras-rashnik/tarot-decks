@@ -14,7 +14,11 @@
           [position$]="getCardHolderPosition(cardHolder.$key)" 
           (onDelete)="onDelete(cardHolder.$key)"
           [selected]="isSelected(cardHolder.$key)">
-        <app-sprite [card]="getCard(cardHolder) | async" (mousedown)="onSelect(cardHolder.$key)"></app-sprite>
+        <app-sprite [card]="getCard(cardHolder) | async" 
+                    [showBackSide]="cardHolder.showBackSide"
+                    (mousedown)="onSelect(cardHolder.$key)" 
+                    (dblclick)="flipCard(cardHolder.$key, cardHolder.showBackSide)">
+        </app-sprite>
       </app-resizable-frame>
     </li>
   </ul>

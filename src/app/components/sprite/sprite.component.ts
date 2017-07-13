@@ -8,15 +8,20 @@ import { Card } from "../../model/card";
 })
 export class SpriteComponent implements OnInit {
 
-  styles: any = {};
+  @Input() showBackSide: boolean = false;
+  @Input() card: Card;
 
   constructor() { }
 
-  @Input() set card(card: Card) {
-    this.styles = card.styles;
+  ngOnInit() {
   }
 
-  ngOnInit() {
+  get styles(): any{
+    if (this.card){
+      return this.showBackSide ? this.card.backSideStyles : this.card.styles;
+    } else {
+      return {};
+    }
   }
 
 }

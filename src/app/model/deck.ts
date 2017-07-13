@@ -8,6 +8,9 @@ export class Deck {
   deckPicture: Card;
 
   constructor(public deckInfo: DeckInfo) {
+    this.backSide = new Card(this, this.calculateRowAndColumn(deckInfo.backSideIndex, deckInfo.cardsInRow));
+    this.deckPicture = new Card(this, this.calculateRowAndColumn(deckInfo.deckPictureIndex, deckInfo.cardsInRow));
+
     for (let j = 0; j < deckInfo.cardsInColumn; j++) {
       for (let i = 0; i < deckInfo.cardsInRow; i++) {
         if (this.cards.length >= deckInfo.cardsNumber) {
@@ -17,12 +20,6 @@ export class Deck {
         this.cards.push(new Card(this, {row:j, column:i}));
       }
     }
-
-    this.backSide = new Card(this, this.calculateRowAndColumn(deckInfo.backSideIndex, deckInfo.cardsInRow));
-    this.deckPicture = new Card(this, this.calculateRowAndColumn(deckInfo.deckPictureIndex, deckInfo.cardsInRow));
-
-    // this.backSide = new Card(this, this.calculateRow(deckInfo.backSideIndex, deckInfo.cardsInRow), this.calculateColumn(deckInfo.backSideIndex, deckInfo.cardsInRow));
-    // this.deckPicture = new Card(this, this.calculateRow(deckInfo.deckPictureIndex, deckInfo.cardsInRow), this.calculateColumn(deckInfo.deckPictureIndex, deckInfo.cardsInRow));
   }
 
   getCard(id: number): Card {

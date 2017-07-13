@@ -4,6 +4,7 @@ import { CardMoniker } from "./card-moniker";
 export class Card {
 
   styles: any = {};
+  backSideStyles: any = {};
   id: number;
 
   constructor(private deck: Deck, { row, column }: { row: number, column: number }) {
@@ -20,6 +21,8 @@ export class Card {
       'background-image': `url(${deck.deckInfo.imageUrl})`,
       'background-size': `${deck.deckInfo.cardsInRow * 100}% ${deck.deckInfo.cardsInColumn * 100}%`,
     };
+
+    this.backSideStyles = deck.backSide ? deck.backSide.styles : this.styles;
   }
 
   get moniker(): CardMoniker {

@@ -31,4 +31,8 @@ export class SessionService {
   getCardHolderPosition(sessionId: string, cardHolderId: string): FirebaseObjectObservable<ShapePosition>{
     return this.angularFirebase.object(`/sessions/${sessionId}/cardholders/${cardHolderId}/position`);
   }
+
+  getCardHolder(sessionId: string, cardHolderId: string): FirebaseObjectObservable<CardHolder>{
+    return this.angularFirebase.object(`/sessions/${sessionId}/cardholders/${cardHolderId}`);
+  }
 }

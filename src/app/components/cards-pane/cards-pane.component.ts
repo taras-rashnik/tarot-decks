@@ -9,6 +9,7 @@ import { Deck } from "../../model/deck";
 })
 export class CardsPaneComponent implements OnInit {
   _selectedDeck: Deck;
+  showBackSide: boolean = false;
 
   constructor() {
   }
@@ -19,6 +20,10 @@ export class CardsPaneComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  flipCards(){
+    this.showBackSide = !this.showBackSide;
   }
 
   onDragStart(event: DragEvent, card: Card) : void {

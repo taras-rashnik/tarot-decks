@@ -3,7 +3,10 @@
     <li *ngFor="let card of _selectedDeck.cards">
       <div class="image-box">
         <div class="image" draggable="true" (dragstart)="onDragStart($event, card)">
-          <app-sprite [card]="card"></app-sprite>
+          <app-sprite [showBackSide]="showBackSide" 
+                      [card]="card"
+                      (dblclick)="flipCards()">
+          </app-sprite>
         </div>
       </div>
       <div>

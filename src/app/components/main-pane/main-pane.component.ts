@@ -33,6 +33,12 @@ export class MainPaneComponent implements OnInit {
     this.main.nativeElement.focus();
   }
 
+  flipCard(holderId: string, currentShowBackSide: boolean): void{
+    console.log(`MainPaneComponent.flipCard(${holderId}, ${currentShowBackSide})`);
+    let holder = this.sessionService.getCardHolder(this.sessionId, holderId);
+    holder.update({showBackSide: !currentShowBackSide});
+  }
+
   unselectAll(): void {
     this.selectedHolderId = null;
   }
