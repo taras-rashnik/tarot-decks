@@ -30,6 +30,8 @@ export class CardsTableComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log("CardsTableComponent.ngOnInit");
+
     this.route.params.subscribe((params: Params) => {
       this.sessionId = params['id'];
       this.session = this.sessionService.getSessionById(this.sessionId);

@@ -17,13 +17,15 @@ export class DecksPaneComponent implements OnInit {
 
   @Output() deckSelected: EventEmitter<Deck> = new EventEmitter<Deck>();
 
-  onImageClick(deck: Deck) : void {
+  onImageClick(deck: Deck): void {
     console.log('onImageClick');
     this.selectedDeck = deck;
     this.deckSelected.emit(this.selectedDeck);
   }
 
   ngOnInit() {
+    console.log("DecksPaneComponent.ngOnInit");
+
     this.decksService.getDecks().subscribe((decks: Deck[]) => {
       this.decks = decks;
       this.onImageClick(decks[0]);

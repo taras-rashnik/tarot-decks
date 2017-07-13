@@ -24,7 +24,12 @@ export class MainPaneComponent implements OnInit {
     private sessionService: SessionService) { }
 
   ngOnInit() {
+    console.log("MainPaneComponent.ngOnInit");
     this.cardHolders = this.sessionService.getCardHolders(this.sessionId);
+  }
+
+  trackCardHolder(index: number, holder$: any) {
+    return holder$.$key;
   }
 
   onSelect(holderId: string): void {
@@ -33,10 +38,10 @@ export class MainPaneComponent implements OnInit {
     this.main.nativeElement.focus();
   }
 
-  flipCard(holderId: string, currentShowBackSide: boolean): void{
+  flipCard(holderId: string, currentShowBackSide: boolean): void {
     console.log(`MainPaneComponent.flipCard(${holderId}, ${currentShowBackSide})`);
     let holder = this.sessionService.getCardHolder(this.sessionId, holderId);
-    holder.update({showBackSide: !currentShowBackSide});
+    holder.update({ showBackSide: !currentShowBackSide });
   }
 
   unselectAll(): void {
@@ -90,8 +95,8 @@ export class MainPaneComponent implements OnInit {
         };
 
         this.cardHolders.push(cardHolder)
-          .then(e => { 
-            this.onSelect(e.key); 
+          .then(e => {
+            this.onSelect(e.key);
           });
       });
   }

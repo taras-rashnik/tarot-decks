@@ -10,12 +10,8 @@
     <app-sprite [card]="decks[3].deckPicture"></app-sprite>
   </div>
 
-  <!--<app-resizable-frame [position]="{location: {left: 400,top: 250,rotation: 0}, size: {width: 150,height: 200}}">
-    <app-sprite [card]="decks[3].cards[12]"></app-sprite>
+  <app-resizable-frame [position$]="getCardHolderPosition()" selected="true">
+    <app-sprite [card]="decks[0].cards[10]"></app-sprite>
   </app-resizable-frame>
-
-  <app-resizable-frame [position]="cardHolder.position">
-    <app-sprite [card]="getCard(cardHolder) | async"></app-sprite>
-  </app-resizable-frame>-->
 
 </div>

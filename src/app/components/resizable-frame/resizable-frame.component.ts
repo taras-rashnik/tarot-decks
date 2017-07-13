@@ -15,8 +15,10 @@ export class ResizableFrameComponent implements OnInit {
   @ViewChild('rotate') rotate: ElementRef;
   @ViewChild('resize') resize: ElementRef;
   @ViewChild('content') content: ElementRef;
+  @ViewChild('container') container: ElementRef;
   _position$: FirebaseObjectObservable<ShapePosition>;
   _position: ShapePosition;
+  _isMouseDown: boolean = false;
   styles: any = {};
   safeTransform: SafeStyle;
 
@@ -26,23 +28,38 @@ export class ResizableFrameComponent implements OnInit {
 
   @Input() selected: boolean;
 
+  _isPositionSet = false;
   @Input() set position$(pos: FirebaseObjectObservable<ShapePosition>) {
+    if(this._isPositionSet){
+      return;
+    }
+
+    this._isPositionSet = true; 
+
+    console.log("set position$")
     this._position$ = pos;
 
-    pos.subscribe(p => {
-      this._position = p;
-
-      if (p.location && p.size) {
-        this.styles = {
-          'left.px': `${p.location.left}`,
-          'top.px': `${p.location.top}`,
-          'width.px': `${p.size.width}`,
-          'height.px': `${p.size.height}`
-        };
-
-        this.safeTransform = this.sanitizer.bypassSecurityTrustStyle(`rotate(${p.location.rotation}rad)`);
+    pos.sampleTime(500).subscribe(p => {
+      if (!this._isMouseDown) {
+        // this._position = { location: { left: 600, top: 250, rotation: 0 }, size: { width: 200, height: 300 } };
+        console.log("p");
+        this._position = p;
+        this.updatePositionStyle();
       }
     })
+  }
+
+  updatePositionStyle() {
+    if (this._position.location && this._position.size) {
+      this.styles = {
+        'left.px': `${this._position.location.left}`,
+        'top.px': `${this._position.location.top}`,
+        'width.px': `${this._position.size.width}`,
+        'height.px': `${this._position.size.height}`
+      };
+
+      this.safeTransform = this.sanitizer.bypassSecurityTrustStyle(`rotate(${this._position.location.rotation}rad)`);
+    }
   }
 
   @Output() onDelete = new EventEmitter();
@@ -52,6 +69,20 @@ export class ResizableFrameComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log("ResizableFrameComponent.ngOnInit");
+
+    Observable.fromEvent(this.container.nativeElement, 'mousedown')
+      .subscribe(e => {
+        this._isMouseDown = true;
+        console.log("mousedown");
+      });
+
+    Observable.fromEvent(this.container.nativeElement, 'mouseup')
+      .subscribe(e => {
+        this._isMouseDown = false;
+        console.log("mouseup");
+      });
+
     this.mouseHelper(this.rotate,
       ({ initialPosition, deltaX, deltaY }) => {
         let ax = (initialPosition.size.height / 2) * Math.sin(initialPosition.location.rotation);
@@ -61,6 +92,10 @@ export class ResizableFrameComponent implements OnInit {
         let cy = ay - deltaY;
 
         let rotation = Math.atan2(cx, cy);
+
+        this._position.location.rotation = rotation;
+        this.updatePositionStyle();
+
         this._position$.update({ location: { rotation: rotation, left: initialPosition.location.left, top: initialPosition.location.top } });
 
         // console.log(`ax: ${ax}, ay: ${ay}, cx: ${cx}, cy: ${cy}, rotation: ${this.position$.location.rotation}`);
@@ -84,6 +119,11 @@ export class ResizableFrameComponent implements OnInit {
 
         let width = initialPosition.size.width * rate;
         let height = initialPosition.size.height * rate;
+
+        this._position.size.width = width;
+        this._position.size.height = height;
+        this.updatePositionStyle();
+
         this._position$.update({ size: { width: width, height: height } });
         // console.log(`ax: ${ax}, ay: ${ay}, bx: ${bx}, by: ${by}, cx: ${cx}, cy: ${cy}, dx: ${dx}, dy: ${dy}, rate: ${rate}, ${this.position$.size.width}, ${this.position$.size.height}`);
       });
@@ -92,6 +132,11 @@ export class ResizableFrameComponent implements OnInit {
       ({ initialPosition, deltaX, deltaY }) => {
         let left = initialPosition.location.left + deltaX;
         let top = initialPosition.location.top + deltaY;
+
+        this._position.location.left = left;
+        this._position.location.top = top;
+        this.updatePositionStyle();
+
         this._position$.update({ location: { left: left, top: top, rotation: initialPosition.location.rotation } });
       });
   }

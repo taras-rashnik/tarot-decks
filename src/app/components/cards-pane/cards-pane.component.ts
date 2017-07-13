@@ -20,6 +20,7 @@ export class CardsPaneComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log("CardsPaneComponent.ngOnInit");
   }
 
   flipCards(){

@@ -8,8 +8,7 @@
   Main
 
   <ul style="list-style-type: none;">
-    <li *ngFor="let cardHolder of cardHolders | async; let i = index">
-      <!--<app-resizable-frame [position]="cardHolder.position">-->
+    <li *ngFor="let cardHolder of cardHolders | async; trackBy: trackCardHolder">
       <app-resizable-frame 
           [position$]="getCardHolderPosition(cardHolder.$key)" 
           (onDelete)="onDelete(cardHolder.$key)"

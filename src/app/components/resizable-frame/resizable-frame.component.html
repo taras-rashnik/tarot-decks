@@ -1,4 +1,4 @@
-<div class="container" [ngStyle]="styles" [style.transform]="safeTransform">
+<div class="container" #container [ngStyle]="styles" [style.transform]="safeTransform">
   <div class="rotate" [class.invisible]="!selected">
     <span #rotate class="glyphicon glyphicon-repeat" aria-hidden="true" style="cursor: ew-resize;"></span>
     <span #delete (click)="onDeleteClick()" class="glyphicon glyphicon-remove" aria-hidden="true" style="cursor: pointer; float: right;"></span>

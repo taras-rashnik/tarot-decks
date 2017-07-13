@@ -14,10 +14,11 @@ export class SpriteComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log("SpriteComponent.ngOnInit");
   }
 
-  get styles(): any{
-    if (this.card){
+  get styles(): any {
+    if (this.card) {
       return this.showBackSide ? this.card.backSideStyles : this.card.styles;
     } else {
       return {};
