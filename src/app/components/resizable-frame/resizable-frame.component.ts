@@ -39,7 +39,7 @@ export class ResizableFrameComponent implements OnInit {
     console.log("set position$")
     this._position$ = pos;
 
-    pos.sampleTime(500).subscribe(p => {
+    pos.sampleTime(50).subscribe(p => {
       if (!this._isMouseDown) {
         // this._position = { location: { left: 600, top: 250, rotation: 0 }, size: { width: 200, height: 300 } };
         console.log("p");
@@ -152,6 +152,7 @@ export class ResizableFrameComponent implements OnInit {
         let startY: number = mdevt.clientY;
 
         return Observable.fromEvent(document, 'mousemove')
+          .sampleTime(20)
           .map((mmevt: MouseEvent) => {
             mmevt.preventDefault();
 

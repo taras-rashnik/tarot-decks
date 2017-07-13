@@ -28,8 +28,16 @@ export class SessionService {
     return this.angularFirebase.list(`/sessions/${sessionId}/cardholders`);
   }
 
+  _positionCache: any = {};
+
   getCardHolderPosition(sessionId: string, cardHolderId: string): FirebaseObjectObservable<ShapePosition>{
-    return this.angularFirebase.object(`/sessions/${sessionId}/cardholders/${cardHolderId}/position`);
+    if (this._positionCache[cardHolderId]){
+      return this._positionCache[cardHolderId];
+    }
+
+    let pos$ = this.angularFirebase.object(`/sessions/${sessionId}/cardholders/${cardHolderId}/position`);
+    this._positionCache[cardHolderId] = pos$;
+    return pos$;
   }
 
   getCardHolder(sessionId: string, cardHolderId: string): FirebaseObjectObservable<CardHolder>{

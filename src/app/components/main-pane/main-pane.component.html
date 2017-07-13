@@ -6,7 +6,7 @@
     (blur)="onBlur($event)">
 
   Main
-
+<!--  [position$]="getCardHolderPosition(cardHolder.$key)"  -->
   <ul style="list-style-type: none;">
     <li *ngFor="let cardHolder of cardHolders | async; trackBy: trackCardHolder">
       <app-resizable-frame 

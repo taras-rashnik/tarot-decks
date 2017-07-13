@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { Card } from "../../model/card";
 import { CardMoniker } from "../../model/card-moniker";
 import { DecksService } from "../../services/decks.service";
@@ -56,6 +56,7 @@ export class MainPaneComponent implements OnInit {
   }
 
   isSelected(holderId: string): boolean {
+    // console.log(`MainPaneComponent.isSelected(${holderId})`);
     return this.selectedHolderId === holderId;
   }
 
@@ -107,10 +108,12 @@ export class MainPaneComponent implements OnInit {
   }
 
   getCard(cardHolder: CardHolder): Observable<Card> {
+    // console.log("getCard");
     return this.decksService.getDeck(cardHolder.deckId).map(d => { return d.getCard(cardHolder.cardId) });
   }
 
   getCardHolderPosition(cardHolderId: string): FirebaseObjectObservable<ShapePosition> {
+    // console.log("getCardHolderPosition");
     return this.sessionService.getCardHolderPosition(this.sessionId, cardHolderId);
   }
 }
